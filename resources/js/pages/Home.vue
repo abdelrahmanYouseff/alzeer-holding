@@ -1,27 +1,27 @@
 <template>
-  <div class="homepage">
+  <div class="homepage" :class="{ 'rtl': isRTL }">
     <!-- Navigation Bar -->
     <nav class="navbar navbar-dark bg-dark fixed-top">
       <div class="container-fluid d-flex justify-content-between align-items-center">
         <!-- Logo on the left -->
         <div class="navbar-brand">
-          <img src="/asset/logos/44.png" alt="Alzeer Holding Logo" class="logo-img" />
+          <img src="/asset/Screenshot_1447-03-29_at_10.51.05_AM-removebg-preview.png" alt="Alzeer Holding Logo" class="logo-img" />
         </div>
 
         <!-- Desktop Navigation Links -->
         <div class="d-none d-md-flex align-items-center">
           <ul class="navbar-nav flex-row me-3">
             <li class="nav-item">
-              <a class="nav-link text-white px-3" href="/">Home</a>
+              <a class="nav-link text-white px-3" href="/">{{ currentContent.home }}</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link text-white px-3" href="#about-us">About Us</a>
+              <a class="nav-link text-white px-3" href="#about-us">{{ currentContent.about }}</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link text-white px-3" href="/asset/pdf/%D8%A8%D8%B1%D9%88%D9%81%D8%A7%D9%8A%D9%84%20%D8%A7%D9%84%D9%82%D8%A7%D8%A8%D8%B6%D8%A9%20(1).pdf" target="_blank">Portfolio</a>
+              <a class="nav-link text-white px-3" href="/asset/pdf/%D8%A8%D8%B1%D9%88%D9%81%D8%A7%D9%8A%D9%84%20%D8%A7%D9%84%D9%82%D8%A7%D8%A8%D8%B6%D8%A9%20(1).pdf" target="_blank">{{ currentContent.portfolio }}</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link text-white px-3" href="#contact">Contact Us</a>
+              <a class="nav-link text-white px-3" href="#contact">{{ currentContent.contact }}</a>
             </li>
           </ul>
 
@@ -51,16 +51,16 @@
         <div class="collapse navbar-collapse d-md-none" id="navbarNav">
           <ul class="navbar-nav">
             <li class="nav-item">
-              <a class="nav-link text-white" href="/">Home</a>
+              <a class="nav-link text-white" href="/">{{ currentContent.home }}</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link text-white" href="#about-us">About Us</a>
+              <a class="nav-link text-white" href="#about-us">{{ currentContent.about }}</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link text-white" href="/asset/pdf/%D8%A8%D8%B1%D9%88%D9%81%D8%A7%D9%8A%D9%84%20%D8%A7%D9%84%D9%82%D8%A7%D8%A8%D8%B6%D8%A9%20(1).pdf" target="_blank">Portfolio</a>
+              <a class="nav-link text-white" href="/asset/pdf/%D8%A8%D8%B1%D9%88%D9%81%D8%A7%D9%8A%D9%84%20%D8%A7%D9%84%D9%82%D8%A7%D8%A8%D8%B6%D8%A9%20(1).pdf" target="_blank">{{ currentContent.portfolio }}</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link text-white" href="#contact">Contact Us</a>
+              <a class="nav-link text-white" href="#contact">{{ currentContent.contact }}</a>
             </li>
             <li class="nav-item">
               <button class="nav-link text-white language-btn-mobile" @click="toggleLanguage">
@@ -93,13 +93,11 @@
 
       <!-- Hero Content -->
       <div class="hero-content">
-        <div class="container">
-          <div class="row justify-content-center">
-            <div class="col-lg-8 text-center">
-              <h1 class="hero-title">At Fahad Nawaf Al-Zeer Holding, we redefine</h1>
-              <p class="hero-subtitle">essence of investment by turning ambition into tangible<br>
-              achievements and forging a bridge from today to<br>
-              future enriched with value and meaningful impact.</p>
+        <div class="container-fluid" style="padding: 0;">
+          <div class="row" style="margin: 0;">
+            <div class="col-lg-6 text-left" style="margin: 0; padding: 0 0 0 60px;">
+              <h1 class="hero-title">{{ currentContent.heroTitle }}</h1>
+              <p class="hero-subtitle">{{ currentContent.heroSubtitle }}</p>
     </div>
         </div>
         </div>
@@ -110,8 +108,8 @@
     <section class="brands-section">
       <div class="container-fluid">
         <div class="brands-header text-center mb-5">
-          <h2 class="brands-title">Alzeer Holding</h2>
-          <p class="brands-subtitle">Discover the diverse portfolio of Alzeer Holding</p>
+          <h2 class="brands-title">{{ currentContent.brandsTitle }}</h2>
+          <p class="brands-subtitle">{{ currentContent.brandsSubtitle }}</p>
           </div>
 
         <!-- First Row - Moving Left -->
@@ -196,7 +194,7 @@
         <!-- About Us Title -->
         <div class="row">
           <div class="col-12">
-            <h2 class="about-us-title text-center">About us</h2>
+            <h2 class="about-us-title text-center">{{ currentContent.aboutUs }}</h2>
             <div class="about-us-underline"></div>
                 </div>
               </div>
@@ -206,17 +204,12 @@
           <div class="col-12">
             <div class="introduction-content">
               <div class="introduction-logo">
-                <img src="/asset/logos/44.png" alt="Alzeer Holding Logo" class="intro-logo-img" />
+                <img src="/asset/Screenshot_1447-03-29_at_10.51.05_AM-removebg-preview.png" alt="Alzeer Holding Logo" class="intro-logo-img" />
                 </div>
               <div class="introduction-text">
-                <h2 class="introduction-title">Introduction</h2>
+                <h2 class="introduction-title">{{ currentContent.introduction }}</h2>
                 <div class="title-underline"></div>
-                <p class="introduction-description">
-                  At Fahad Nawaf Al-Zeer Holding, we redefine<br>
-                  the essence of investment by turning ambition<br>
-                  into tangible achievements and forging a bridge<br>
-                  from today to a future enriched with value<br>
-                  and meaningful impact.
+                <p class="introduction-description" v-html="currentContent.introductionText">
                 </p>
               </div>
                 </div>
@@ -227,12 +220,9 @@
         <div class="row mt-5">
           <div class="col-12">
             <div class="vision-content">
-              <h2 class="vision-title">Vision</h2>
+              <h2 class="vision-title">{{ currentContent.vision }}</h2>
               <div class="vision-underline"></div>
-              <p class="vision-description">
-                To be a guiding light in investment, inspiring generations<br>
-                and creating opportunities that shape a brighter,<br>
-                sustainable, and prosperous future for all.
+              <p class="vision-description" v-html="currentContent.visionText">
               </p>
               </div>
                 </div>
@@ -242,13 +232,9 @@
         <div class="row mt-5">
           <div class="col-12">
             <div class="mission-content">
-              <h2 class="mission-title">Mission</h2>
+              <h2 class="mission-title">{{ currentContent.mission }}</h2>
               <div class="mission-underline"></div>
-              <p class="mission-description">
-                We nurture human potential and spark innovation,<br>
-                building a values-driven ecosystem that delivers<br>
-                meaningful achievements, strengthens our economy,<br>
-                and enriches the lives of our communities.
+              <p class="mission-description" v-html="currentContent.missionText">
               </p>
                 </div>
               </div>
@@ -263,7 +249,7 @@
         <!-- Contact Title -->
         <div class="row">
           <div class="col-12">
-            <h2 class="contact-title text-center">Contact us</h2>
+            <h2 class="contact-title text-center">{{ currentContent.contactTitle }}</h2>
             <div class="contact-underline"></div>
                 </div>
               </div>
@@ -273,10 +259,8 @@
           <!-- Contact Information -->
           <div class="col-lg-6 mb-5">
             <div class="contact-info">
-              <h3 class="contact-subtitle">Get in Touch</h3>
-              <p class="contact-description">
-                We're here to help and answer any question you might have.
-                We look forward to hearing from you.
+              <h3 class="contact-subtitle">{{ currentContent.getInTouch }}</h3>
+              <p class="contact-description" v-html="currentContent.contactDescription">
               </p>
 
               <div class="contact-details">
@@ -326,22 +310,22 @@
           <!-- Contact Form -->
           <div class="col-lg-6 mb-5">
             <div class="contact-form-container">
-              <h3 class="contact-subtitle">Send us a Message</h3>
+              <h3 class="contact-subtitle">{{ currentContent.contactForm }}</h3>
               <form class="contact-form">
                 <div class="form-group">
-                  <input type="text" class="form-control" placeholder="Your Name" required>
+                  <input type="text" class="form-control" :placeholder="currentContent.name" required>
                 </div>
                 <div class="form-group">
-                  <input type="email" class="form-control" placeholder="Your Email" required>
+                  <input type="email" class="form-control" :placeholder="currentContent.email" required>
               </div>
                 <div class="form-group">
-                  <input type="text" class="form-control" placeholder="Subject" required>
+                  <input type="text" class="form-control" :placeholder="currentContent.phone" required>
               </div>
                 <div class="form-group">
-                  <textarea class="form-control" rows="5" placeholder="Your Message" required></textarea>
+                  <textarea class="form-control" rows="5" :placeholder="currentContent.message" required></textarea>
             </div>
                 <button type="submit" class="contact-btn">
-                  <span>Send Message</span>
+                  <span>{{ currentContent.submit }}</span>
                   <img src="/asset/icons/mail.png" alt="Send" class="btn-icon" />
                 </button>
               </form>
@@ -372,7 +356,7 @@
           <div class="col-lg-4 col-md-6 mb-4">
             <div class="footer-section">
               <div class="footer-logo mb-3">
-                <img src="/asset/logos/44.png" alt="Alzeer Holding Logo" class="footer-logo-img" />
+                <img src="/asset/Screenshot_1447-03-29_at_10.51.05_AM-removebg-preview.png" alt="Alzeer Holding Logo" class="footer-logo-img" />
               </div>
               <p class="footer-description">
                 Building the future of investment through strategic partnerships,
@@ -413,14 +397,14 @@
           <div class="row align-items-center">
             <div class="col-md-6">
               <p class="copyright">
-                &copy; 2024 Alzeer Holding. All rights reserved.
+                {{ currentContent.copyright }}
               </p>
               </div>
             <div class="col-md-6">
               <div class="footer-bottom-links">
-                <a href="#" class="footer-bottom-link">Privacy Policy</a>
-                <a href="#" class="footer-bottom-link">Terms of Service</a>
-                <a href="#" class="footer-bottom-link">Cookie Policy</a>
+                <a href="#" class="footer-bottom-link">{{ currentContent.privacyPolicy }}</a>
+                <a href="#" class="footer-bottom-link">{{ currentContent.termsOfService }}</a>
+                <a href="#" class="footer-bottom-link">{{ currentContent.cookiePolicy }}</a>
               </div>
               </div>
             </div>
@@ -431,7 +415,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 
 // Language state
 const currentLanguage = ref('EN')
@@ -442,38 +426,160 @@ const languages = [
   { code: 'AR', name: 'العربية' }
 ]
 
+// Content translations
+const content = ref({
+  EN: {
+    heroTitle: "At Fahad Nawaf Al-Zeer Holding, we redefine",
+    heroSubtitle: "essence of investment by turning ambition into tangible",
+    aboutUs: "About us",
+    brandsTitle: "Our Brands",
+    brandsSubtitle: "Discover the diverse portfolio of Alzeer Holding",
+    home: "Home",
+    about: "About",
+    brands: "Brands",
+    contact: "Contact",
+    portfolio: "Portfolio",
+    introduction: "Introduction",
+    introductionText: "At Fahad Nawaf Al-Zeer Holding, we redefine<br>the essence of investment by turning ambition<br>into tangible achievements and forging a bridge<br>from today to a future enriched with value<br>and meaningful impact.",
+    vision: "Vision",
+    visionText: "To be the leading investment holding company<br>in the region, creating sustainable value<br>through innovative strategies and strategic partnerships.",
+    mission: "Mission",
+    missionText: "We are committed to building a diversified<br>portfolio of investments that drive growth,<br>create opportunities, and contribute to the<br>development of our communities.",
+    contactUs: "Contact Us",
+    getInTouch: "Get in Touch",
+    sendMessage: "Send Message",
+    contactTitle: "Contact us",
+    contactInfo: "Contact Information",
+    contactForm: "Send us a message",
+    name: "Name",
+    email: "Email",
+    phone: "Phone",
+    message: "Message",
+    submit: "Send Message",
+    contactDescription: "We're here to help and answer any question you might have.<br>We look forward to hearing from you.",
+    privacyPolicy: "Privacy Policy",
+    termsOfService: "Terms of Service",
+    cookiePolicy: "Cookie Policy",
+    copyright: "© 2024 Alzeer Holding. All rights reserved."
+  },
+  AR: {
+    heroTitle: "في شركة فهد نواف الزير القابضة، نعيد تعريف",
+    heroSubtitle: "جوهر الاستثمار بتحويل الطموح إلى إنجازات ملموسة",
+    aboutUs: "من نحن",
+    brandsTitle: "علاماتنا التجارية",
+    brandsSubtitle: "اكتشف محفظة الزير القابضة المتنوعة",
+    home: "الرئيسية",
+    about: "من نحن",
+    brands: "العلامات التجارية",
+    contact: "تواصل معنا",
+    portfolio: "المحفظة",
+    introduction: "مقدمة",
+    introductionText: "في شركة فهد نواف الزير القابضة، نعيد تعريف<br>جوهر الاستثمار بتحويل الطموح إلى<br>إنجازات ملموسة وبناء جسر من اليوم<br>إلى مستقبل مليء بالقيمة والتأثير ذي المعنى.",
+    vision: "رؤيتنا",
+    visionText: "أن نكون شركة القابضة الاستثمارية الرائدة<br>في المنطقة، وخلق قيمة مستدامة<br>من خلال استراتيجيات مبتكرة وشراكات استراتيجية.",
+    mission: "مهمتنا",
+    missionText: "نحن ملتزمون ببناء محفظة متنوعة<br>من الاستثمارات التي تحفز النمو،<br>وخلق الفرص، والمساهمة في<br>تطوير مجتمعاتنا.",
+    contactUs: "تواصل معنا",
+    getInTouch: "تواصل معنا",
+    sendMessage: "إرسال رسالة",
+    contactTitle: "تواصل معنا",
+    contactInfo: "معلومات التواصل",
+    contactForm: "أرسل لنا رسالة",
+    name: "الاسم",
+    email: "البريد الإلكتروني",
+    phone: "الهاتف",
+    message: "الرسالة",
+    submit: "إرسال الرسالة",
+    contactDescription: "نحن هنا لمساعدتك والإجابة على أي سؤال قد يكون لديك.<br>نتطلع إلى سماع منك.",
+    privacyPolicy: "سياسة الخصوصية",
+    termsOfService: "شروط الخدمة",
+    cookiePolicy: "سياسة ملفات تعريف الارتباط",
+    copyright: "© 2024 شركة الزير القابضة. جميع الحقوق محفوظة."
+  }
+})
+
 // Toggle language function
 const toggleLanguage = () => {
   const currentIndex = languages.findIndex(lang => lang.code === currentLanguage.value)
   const nextIndex = (currentIndex + 1) % languages.length
   currentLanguage.value = languages[nextIndex].code
 
-  // You can add language switching logic here
+  // Update document direction
+  if (currentLanguage.value === 'AR') {
+    document.documentElement.dir = 'rtl'
+    document.documentElement.lang = 'ar'
+  } else {
+    document.documentElement.dir = 'ltr'
+    document.documentElement.lang = 'en'
+  }
+
   console.log('Language changed to:', currentLanguage.value)
 }
+
+// Computed property for current content
+const currentContent = computed(() => content.value[currentLanguage.value])
+
+// Computed property for text direction
+const isRTL = computed(() => currentLanguage.value === 'AR')
 </script>
 
 <style scoped>
-@import url('https://fonts.googleapis.com/css2?family=Righteous&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@400&display=swap');
 
 .homepage {
   min-height: 100vh;
   background: #ffffff;
-  font-family: 'Righteous', sans-serif;
+  font-family: 'Roboto', sans-serif;
 }
 
-/* Apply Righteous font to all text elements */
+/* Apply Roboto font to all text elements */
 * {
-  font-family: 'Righteous', sans-serif !important;
+  font-family: 'Roboto', sans-serif !important;
+}
+
+/* RTL Support */
+[dir="rtl"] * {
+  font-family: 'Noto Sans Arabic', sans-serif !important;
+}
+
+/* RTL Layout Adjustments */
+[dir="rtl"] .introduction-content {
+  flex-direction: row-reverse;
+}
+
+[dir="rtl"] .vision-content {
+  margin-left: auto;
+  margin-right: 180px;
+  text-align: right;
+}
+
+[dir="rtl"] .mission-content {
+  margin-left: 180px;
+  margin-right: auto;
+  text-align: left;
+}
+
+[dir="rtl"] .hero-content .container-fluid {
+  direction: rtl;
+}
+
+[dir="rtl"] .footer-bottom-links {
+  justify-content: flex-start;
+}
+
+[dir="rtl"] .language-selector {
+  margin-right: 0;
+  margin-left: auto;
 }
 
 h1, h2, h3, h4, h5, h6, p, span, div, a, li, ul, ol, button, input, textarea, label {
-  font-family: 'Righteous', sans-serif !important;
+  font-family: 'Roboto', sans-serif !important;
 }
 
 /* Navigation Styles */
 .navbar {
-  background-color: #000000 !important;
+  background-color: #444444 !important;
   padding: 1rem 0;
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
@@ -535,7 +641,7 @@ h1, h2, h3, h4, h5, h6, p, span, div, a, li, ul, ol, button, input, textarea, la
 }
 
 .language-text {
-  font-weight: 600;
+  font-weight: 400;
 }
 
 .language-btn-mobile {
@@ -608,22 +714,28 @@ h1, h2, h3, h4, h5, h6, p, span, div, a, li, ul, ol, button, input, textarea, la
   position: relative;
   z-index: 3;
   color: white;
-  text-align: center;
+  text-align: left;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 0;
+  margin: 0;
+  width: 100%;
 }
 
 .hero-title {
-  font-size: 3.5rem;
-  font-weight: 700;
+  font-size: 5rem;
+  font-weight: 400;
   margin-bottom: 1.5rem;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+  text-shadow: none;
   animation: fadeInUp 1s ease-out;
 }
 
 .hero-subtitle {
-  font-size: 1.5rem;
+  font-size: 2rem;
   font-weight: 300;
   margin-bottom: 2rem;
-  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+  text-shadow: none;
   animation: fadeInUp 1s ease-out 0.3s both;
 }
 
@@ -651,7 +763,7 @@ h1, h2, h3, h4, h5, h6, p, span, div, a, li, ul, ol, button, input, textarea, la
 
 .brands-title {
   font-size: 2.5rem;
-  font-weight: 700;
+  font-weight: 400;
   color: #000000;
   margin-bottom: 1rem;
 }
@@ -768,12 +880,12 @@ h1, h2, h3, h4, h5, h6, p, span, div, a, li, ul, ol, button, input, textarea, la
   }
 
   .hero-title {
-    font-size: 2.5rem;
+    font-size: 3.5rem;
     margin-bottom: 1rem;
   }
 
   .hero-subtitle {
-    font-size: 1.2rem;
+    font-size: 1.5rem;
     margin-bottom: 1.5rem;
   }
 
@@ -840,7 +952,7 @@ h1, h2, h3, h4, h5, h6, p, span, div, a, li, ul, ol, button, input, textarea, la
 
 /* Footer Styles */
 .footer {
-  background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+  background: #444444;
   color: #ffffff;
   padding: 4rem 0 2rem;
   margin-top: 4rem;
@@ -859,7 +971,7 @@ h1, h2, h3, h4, h5, h6, p, span, div, a, li, ul, ol, button, input, textarea, la
 .footer-title {
   color: #ffd700;
   font-size: 1.3rem;
-  font-weight: 600;
+  font-weight: 400;
   margin-bottom: 1.5rem;
   position: relative;
 }
@@ -1035,7 +1147,7 @@ h1, h2, h3, h4, h5, h6, p, span, div, a, li, ul, ol, button, input, textarea, la
 .about-us-title {
   color: #000000;
   font-size: 3rem;
-  font-weight: 700;
+  font-weight: 400;
   margin-bottom: 1rem;
   margin-top: 0;
 }
@@ -1082,7 +1194,7 @@ h1, h2, h3, h4, h5, h6, p, span, div, a, li, ul, ol, button, input, textarea, la
 .introduction-title {
   color: #d9bb59;
   font-size: 2.5rem;
-  font-weight: 700;
+  font-weight: 400;
   margin-bottom: 1rem;
   margin-top: 0;
 }
@@ -1118,7 +1230,7 @@ h1, h2, h3, h4, h5, h6, p, span, div, a, li, ul, ol, button, input, textarea, la
 .vision-title {
   color: #d9bb59;
   font-size: 2.8rem;
-  font-weight: 700;
+  font-weight: 400;
   margin-bottom: 1rem;
   margin-top: 0;
   display: inline-block;
@@ -1152,7 +1264,7 @@ h1, h2, h3, h4, h5, h6, p, span, div, a, li, ul, ol, button, input, textarea, la
 .mission-title {
   color: #d9bb59;
   font-size: 2.8rem;
-  font-weight: 700;
+  font-weight: 400;
   margin-bottom: 1rem;
   margin-top: 0;
   display: inline-block;
@@ -1185,7 +1297,7 @@ h1, h2, h3, h4, h5, h6, p, span, div, a, li, ul, ol, button, input, textarea, la
 .contact-title {
   color: #000000;
   font-size: 3rem;
-  font-weight: 700;
+  font-weight: 400;
   margin-bottom: 1rem;
   margin-top: 0;
 }
@@ -1201,7 +1313,7 @@ h1, h2, h3, h4, h5, h6, p, span, div, a, li, ul, ol, button, input, textarea, la
 .contact-subtitle {
   color: #d9bb59;
   font-size: 1.8rem;
-  font-weight: 700;
+  font-weight: 400;
   margin-bottom: 1.5rem;
 }
 
@@ -1252,7 +1364,7 @@ h1, h2, h3, h4, h5, h6, p, span, div, a, li, ul, ol, button, input, textarea, la
   border-radius: 10px;
   padding: 1rem 2rem;
   font-size: 1.1rem;
-  font-weight: 600;
+  font-weight: 400;
   display: flex;
   align-items: center;
   gap: 0.5rem;
@@ -1325,7 +1437,7 @@ h1, h2, h3, h4, h5, h6, p, span, div, a, li, ul, ol, button, input, textarea, la
 .contact-text h4 {
   color: #d9bb59;
   font-size: 1.2rem;
-  font-weight: 700;
+  font-weight: 400;
   margin-bottom: 0.5rem;
 }
 
