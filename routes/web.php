@@ -5,8 +5,11 @@ use Inertia\Inertia;
 
 Route::get('/', function () {
     $brands = \App\Models\Brand::where('is_active', true)->orderBy('sort_order')->get();
+    $contactInfo = \App\Models\ContactInformation::first();
+    
     return Inertia::render('Home', [
-        'brands' => $brands
+        'brands' => $brands,
+        'contactInfo' => $contactInfo
     ]);
 })->name('home');
 

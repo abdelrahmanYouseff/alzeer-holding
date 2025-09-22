@@ -276,7 +276,7 @@
                 </div>
                   <div class="contact-text">
                     <h4>Address</h4>
-                    <p>Riyadh, Kingdom of Saudi Arabia</p>
+                    <p>{{ contactInfo.address || 'Riyadh, Kingdom of Saudi Arabia' }}</p>
               </div>
                 </div>
 
@@ -286,7 +286,7 @@
               </div>
                   <div class="contact-text">
                     <h4>Phone</h4>
-                    <p>+966 XX XXX XXXX</p>
+                    <p>{{ contactInfo.phone || '+966 XX XXX XXXX' }}</p>
                 </div>
               </div>
 
@@ -296,7 +296,7 @@
                 </div>
                   <div class="contact-text">
                     <h4>Email</h4>
-                    <p>info@alzeerholding.com</p>
+                    <p>{{ contactInfo.email || 'info@alzeerholding.com' }}</p>
               </div>
             </div>
 
@@ -456,9 +456,10 @@
 import { ref, computed, onMounted } from 'vue'
 import { usePage } from '@inertiajs/vue3'
 
-// Get brands data from backend
+// Get brands and contact data from backend
 const page = usePage()
 const brands = computed(() => page.props.brands || [])
+const contactInfo = computed(() => page.props.contactInfo || {})
 
 // Social media data
 interface SocialMediaLink {
