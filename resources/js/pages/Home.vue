@@ -115,76 +115,82 @@
         <!-- First Row - Moving Left -->
         <div class="brands-row brands-row-1">
           <div class="brands-container">
-            <div class="brand-item">
-              <img src="/asset/logos/44.png" alt="Alzeer Holding" class="brand-logo" />
-                </div>
-            <div class="brand-item">
-              <img src="/asset/logos/44.png" alt="Alzeer Holding" class="brand-logo" />
-              </div>
-            <div class="brand-item">
-              <img src="/asset/logos/44.png" alt="Alzeer Holding" class="brand-logo" />
-                </div>
-            <div class="brand-item">
-              <img src="/asset/logos/44.png" alt="Alzeer Holding" class="brand-logo" />
-              </div>
-            <div class="brand-item">
-              <img src="/asset/logos/44.png" alt="Alzeer Holding" class="brand-logo" />
-                </div>
-              <!-- Duplicate for seamless loop -->
-            <div class="brand-item">
-              <img src="/asset/logos/44.png" alt="Alzeer Holding" class="brand-logo" />
-              </div>
-            <div class="brand-item">
-              <img src="/asset/logos/44.png" alt="Alzeer Holding" class="brand-logo" />
-                </div>
-            <div class="brand-item">
-              <img src="/asset/logos/44.png" alt="Alzeer Holding" class="brand-logo" />
-              </div>
-            <div class="brand-item">
-              <img src="/asset/logos/44.png" alt="Alzeer Holding" class="brand-logo" />
-                </div>
-            <div class="brand-item">
-              <img src="/asset/logos/44.png" alt="Alzeer Holding" class="brand-logo" />
-              </div>
+            <!-- Original brands -->
+            <template v-for="brand in brands" :key="brand.id">
+              <div class="brand-item">
+                <img
+                  v-if="brand.logo_path"
+                  :src="`/storage/${brand.logo_path}`"
+                  :alt="brand.name"
+                  class="brand-logo"
+                />
+                <div v-else class="brand-logo brand-placeholder">
+                  {{ brand.name.charAt(0) }}
                 </div>
               </div>
+            </template>
+            <!-- Duplicate for seamless loop (only if we have brands) -->
+            <template v-for="brand in brands" :key="`duplicate-${brand.id}`" v-if="brands.length > 0">
+              <div class="brand-item">
+                <img
+                  v-if="brand.logo_path"
+                  :src="`/storage/${brand.logo_path}`"
+                  :alt="brand.name"
+                  class="brand-logo"
+                />
+                <div v-else class="brand-logo brand-placeholder">
+                  {{ brand.name.charAt(0) }}
+                </div>
+              </div>
+            </template>
+            <!-- Fallback if no brands -->
+            <div v-if="brands.length === 0" class="brand-item">
+              <div class="brand-logo brand-placeholder">
+                A
+              </div>
+            </div>
+          </div>
+        </div>
 
         <!-- Second Row - Moving Right -->
         <div class="brands-row brands-row-2">
           <div class="brands-container">
-            <div class="brand-item">
-              <img src="/asset/logos/44.png" alt="Alzeer Holding" class="brand-logo" />
-                </div>
-            <div class="brand-item">
-              <img src="/asset/logos/44.png" alt="Alzeer Holding" class="brand-logo" />
-              </div>
-            <div class="brand-item">
-              <img src="/asset/logos/44.png" alt="Alzeer Holding" class="brand-logo" />
-                </div>
-            <div class="brand-item">
-              <img src="/asset/logos/44.png" alt="Alzeer Holding" class="brand-logo" />
-              </div>
-            <div class="brand-item">
-              <img src="/asset/logos/44.png" alt="Alzeer Holding" class="brand-logo" />
-              </div>
-              <!-- Duplicate for seamless loop -->
-            <div class="brand-item">
-              <img src="/asset/logos/44.png" alt="Alzeer Holding" class="brand-logo" />
-                </div>
-            <div class="brand-item">
-              <img src="/asset/logos/44.png" alt="Alzeer Holding" class="brand-logo" />
-              </div>
-            <div class="brand-item">
-              <img src="/asset/logos/44.png" alt="Alzeer Holding" class="brand-logo" />
-                </div>
-            <div class="brand-item">
-              <img src="/asset/logos/44.png" alt="Alzeer Holding" class="brand-logo" />
-              </div>
-            <div class="brand-item">
-              <img src="/asset/logos/44.png" alt="Alzeer Holding" class="brand-logo" />
+            <!-- Original brands -->
+            <template v-for="brand in brands" :key="`second-${brand.id}`">
+              <div class="brand-item">
+                <img
+                  v-if="brand.logo_path"
+                  :src="`/storage/${brand.logo_path}`"
+                  :alt="brand.name"
+                  class="brand-logo"
+                />
+                <div v-else class="brand-logo brand-placeholder">
+                  {{ brand.name.charAt(0) }}
                 </div>
               </div>
+            </template>
+            <!-- Duplicate for seamless loop (only if we have brands) -->
+            <template v-for="brand in brands" :key="`second-duplicate-${brand.id}`" v-if="brands.length > 0">
+              <div class="brand-item">
+                <img
+                  v-if="brand.logo_path"
+                  :src="`/storage/${brand.logo_path}`"
+                  :alt="brand.name"
+                  class="brand-logo"
+                />
+                <div v-else class="brand-logo brand-placeholder">
+                  {{ brand.name.charAt(0) }}
                 </div>
+              </div>
+            </template>
+            <!-- Fallback if no brands -->
+            <div v-if="brands.length === 0" class="brand-item">
+              <div class="brand-logo brand-placeholder">
+                A
+              </div>
+            </div>
+          </div>
+        </div>
               </div>
       </section>
 
@@ -363,13 +369,45 @@
                 innovative solutions, and sustainable growth across diverse sectors.
               </p>
               <div class="social-links">
-                <a href="#" class="social-link">
+                <!-- Facebook -->
+                <a
+                  v-if="socialMedia?.facebook"
+                  href="#"
+                  class="social-link"
+                  @click.prevent="openSocialLink(socialMedia.facebook, 'Facebook')"
+                >
                   <img src="/asset/icons/facebook.png" alt="Facebook" class="social-icon" />
                 </a>
-                <a href="#" class="social-link">
+
+                <!-- Twitter/X -->
+                <a
+                  v-if="socialMedia?.twitter"
+                  href="#"
+                  class="social-link"
+                  @click.prevent="openSocialLink(socialMedia.twitter, 'Twitter')"
+                >
                   <img src="/asset/icons/twitter.png" alt="Twitter" class="social-icon" />
                 </a>
-                <a href="#" class="social-link">
+
+                <!-- LinkedIn -->
+                <a
+                  v-if="socialMedia?.linkedin"
+                  href="#"
+                  class="social-link"
+                  @click.prevent="openSocialLink(socialMedia.linkedin, 'LinkedIn')"
+                >
+                  <svg class="social-icon" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                  </svg>
+                </a>
+
+                <!-- Instagram -->
+                <a
+                  v-if="socialMedia?.instagram"
+                  href="#"
+                  class="social-link"
+                  @click.prevent="openSocialLink(socialMedia.instagram, 'Instagram')"
+                >
                   <img src="/asset/icons/instagram.png" alt="Instagram" class="social-icon" />
                 </a>
               </div>
@@ -415,10 +453,52 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { ref, computed, onMounted } from 'vue'
+import { usePage } from '@inertiajs/vue3'
+
+// Get brands data from backend
+const page = usePage()
+const brands = computed(() => page.props.brands || [])
+
+// Social media data
+interface SocialMediaLink {
+    id?: number;
+    facebook?: string;
+    twitter?: string;
+    linkedin?: string;
+    instagram?: string;
+}
+
+const socialMedia = ref<SocialMediaLink | null>(null);
+
+// Fetch social media data from API
+const fetchSocialMediaData = async () => {
+    try {
+        const response = await fetch('/api/website-data');
+        const data = await response.json();
+        socialMedia.value = data.socialMedia;
+    } catch (error) {
+        console.error('Error fetching social media data:', error);
+    }
+};
+
+// Function to open social media links
+const openSocialLink = (url: string, platform: string) => {
+    if (!url || url.trim() === '') {
+        console.error(`No URL found for ${platform}`);
+        return;
+    }
+
+    // Simple and direct approach
+    window.open(url, '_blank', 'noopener,noreferrer');
+};
 
 // Language state
 const currentLanguage = ref('EN')
+
+onMounted(() => {
+    fetchSocialMediaData();
+});
 
 // Available languages
 const languages = [
@@ -429,7 +509,7 @@ const languages = [
 // Content translations
 const content = ref({
   EN: {
-    heroTitle: "At Fahad Nawaf Al-Zeer Holding, we redefine",
+    heroTitle: "Fahad Nawaf Al-Zeer Holding, we redefine",
     heroSubtitle: "essence of investment by turning ambition into tangible",
     aboutUs: "About us",
     brandsTitle: "Our Brands",
@@ -440,7 +520,7 @@ const content = ref({
     contact: "Contact",
     portfolio: "Portfolio",
     introduction: "Introduction",
-    introductionText: "At Fahad Nawaf Al-Zeer Holding, we redefine<br>the essence of investment by turning ambition<br>into tangible achievements and forging a bridge<br>from today to a future enriched with value<br>and meaningful impact.",
+    introductionText: "Fahad Nawaf Al-Zeer Holding, we redefine<br>the essence of investment by turning ambition<br>into tangible achievements and forging a bridge<br>from today to a future enriched with value<br>and meaningful impact.",
     vision: "Vision",
     visionText: "To be the leading investment holding company<br>in the region, creating sustainable value<br>through innovative strategies and strategic partnerships.",
     mission: "Mission",
@@ -463,7 +543,7 @@ const content = ref({
     copyright: "© 2024 Alzeer Holding. All rights reserved."
   },
   AR: {
-    heroTitle: "في شركة فهد نواف الزير القابضة، نعيد تعريف",
+    heroTitle: "فهد نواف الزير القابضة، نعيد تعريف",
     heroSubtitle: "جوهر الاستثمار بتحويل الطموح إلى إنجازات ملموسة",
     aboutUs: "من نحن",
     brandsTitle: "علاماتنا التجارية",
@@ -474,7 +554,7 @@ const content = ref({
     contact: "تواصل معنا",
     portfolio: "المحفظة",
     introduction: "مقدمة",
-    introductionText: "في شركة فهد نواف الزير القابضة، نعيد تعريف<br>جوهر الاستثمار بتحويل الطموح إلى<br>إنجازات ملموسة وبناء جسر من اليوم<br>إلى مستقبل مليء بالقيمة والتأثير ذي المعنى.",
+    introductionText: "فهد نواف الزير القابضة، نعيد تعريف<br>جوهر الاستثمار بتحويل الطموح إلى<br>إنجازات ملموسة وبناء جسر من اليوم<br>إلى مستقبل مليء بالقيمة والتأثير ذي المعنى.",
     vision: "رؤيتنا",
     visionText: "أن نكون شركة القابضة الاستثمارية الرائدة<br>في المنطقة، وخلق قيمة مستدامة<br>من خلال استراتيجيات مبتكرة وشراكات استراتيجية.",
     mission: "مهمتنا",
@@ -725,14 +805,14 @@ h1, h2, h3, h4, h5, h6, p, span, div, a, li, ul, ol, button, input, textarea, la
 
 .hero-title {
   font-size: 5rem;
-  font-weight: 400;
+  font-weight: 700;
   margin-bottom: 1.5rem;
   text-shadow: none;
   animation: fadeInUp 1s ease-out;
 }
 
 .hero-subtitle {
-  font-size: 2rem;
+  font-size: 1.5rem;
   font-weight: 300;
   margin-bottom: 2rem;
   text-shadow: none;
@@ -817,14 +897,34 @@ h1, h2, h3, h4, h5, h6, p, span, div, a, li, ul, ol, button, input, textarea, la
 }
 
 .brand-logo {
-  width: 100px;
-  height: 100px;
+  width: 160px;
+  height: 160px;
   object-fit: contain;
   transition: transform 0.3s ease;
 }
 
+.brand-placeholder {
+  width: 160px;
+  height: 160px;
+  background: linear-gradient(135deg, #FFD700, #FFA500);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3rem;
+  font-weight: bold;
+  color: white;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+  box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
+}
+
 .brand-item:hover .brand-logo {
   transform: scale(1.1);
+}
+
+.brand-item:hover .brand-placeholder {
+  transform: scale(1.1);
+  box-shadow: 0 6px 20px rgba(255, 215, 0, 0.5);
 }
 
 @keyframes moveLeft {

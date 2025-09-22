@@ -55,7 +55,7 @@
                 <h2 class="section-title text-center text-md-start mb-0">Introduction</h2>
               </div>
               <div class="introduction-text text-muted">
-                <p class="mb-2">At Fahad Nawaf Al-Zeer Holding, we redefine</p>
+                <p class="mb-2">Fahad Nawaf Al-Zeer Holding, we redefine</p>
                 <p class="mb-2">the essence of investment by turning ambition</p>
                 <p class="mb-2">into tangible achievements and forging a bridge</p>
                 <p class="mb-2">from today to a future enriched with value</p>

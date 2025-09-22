@@ -25,4 +25,18 @@ Route::middleware('auth')->group(function () {
 
     Route::get('settings/two-factor', [TwoFactorAuthenticationController::class, 'show'])
         ->name('two-factor.show');
+
+    Route::get('settings/website', [App\Http\Controllers\WebsiteController::class, 'index'])->name('website');
+
+    // Website Settings API Routes
+    Route::post('settings/website/general', [App\Http\Controllers\WebsiteController::class, 'updateGeneralSettings'])->name('website.general.update');
+    Route::post('settings/website/contact', [App\Http\Controllers\WebsiteController::class, 'updateContactInfo'])->name('website.contact.update');
+    Route::post('settings/website/social-media', [App\Http\Controllers\WebsiteController::class, 'updateSocialMedia'])->name('website.social-media.update');
+
+    // Brand Management Routes
+    Route::post('settings/website/brands', [App\Http\Controllers\WebsiteController::class, 'storeBrand'])->name('website.brands.store');
+    Route::put('settings/website/brands/{brand}', [App\Http\Controllers\WebsiteController::class, 'updateBrand'])->name('website.brands.update');
+    Route::delete('settings/website/brands/{brand}', [App\Http\Controllers\WebsiteController::class, 'deleteBrand'])->name('website.brands.delete');
+    Route::post('settings/website/brands/order', [App\Http\Controllers\WebsiteController::class, 'updateBrandOrder'])->name('website.brands.order');
+    Route::patch('settings/website/brands/{brand}/toggle', [App\Http\Controllers\WebsiteController::class, 'toggleBrand'])->name('website.brands.toggle');
 });
