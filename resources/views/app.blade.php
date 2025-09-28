@@ -2,7 +2,7 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}"  @class(['dark' => ($appearance ?? 'system') == 'dark'])>
     <head>
         <meta property="og:title" content="Alzeer Holding" />
-        <meta property="og:description" content="الموقع الرسمي لشركة Alzeer Holding" />
+        <meta property="og:description" content="الموقع الرسمي لشركة فهد نواف الزير القابضة" />
         <meta property="og:image" content="{{ asset('asset/Screenshot_1447-03-29_at_10.51.05_AM-removebg-preview.png') }}" />
         <meta property="og:url" content="{{ url('/') }}" />
         <meta name="twitter:card" content="summary_large_image" />
