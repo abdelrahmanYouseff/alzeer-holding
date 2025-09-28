@@ -190,7 +190,7 @@ const getSocialMediaUrl = (platform: string) => {
                         <a href="/" class="block text-gray-300 hover:text-white transition-colors duration-300">
                             Home
                         </a>
-                        <a href="/about-us" class="block text-gray-300 hover:text-white transition-colors duration-300">
+                        <a href="#about-us" class="block text-gray-300 hover:text-white transition-colors duration-300">
                             About Us
                         </a>
                         <a href="/portfolio" class="block text-gray-300 hover:text-white transition-colors duration-300">

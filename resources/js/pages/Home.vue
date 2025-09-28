@@ -18,7 +18,7 @@
               <a class="nav-link text-white px-3" href="#about-us">{{ currentContent.about }}</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link text-white px-3" href="/asset/pdf/%D8%A8%D8%B1%D9%88%D9%81%D8%A7%D9%8A%D9%84%20%D8%A7%D9%84%D9%82%D8%A7%D8%A8%D8%B6%D8%A9%20(1).pdf" target="_blank">{{ currentContent.portfolio }}</a>
+              <a class="nav-link text-white px-3" :href="`/portfolio?t=${Date.now()}`" target="_blank">{{ currentContent.portfolio }}</a>
             </li>
             <li class="nav-item">
               <a class="nav-link text-white px-3" href="#contact">{{ currentContent.contact }}</a>
@@ -57,7 +57,7 @@
               <a class="nav-link text-white" href="#about-us">{{ currentContent.about }}</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link text-white" href="/asset/pdf/%D8%A8%D8%B1%D9%88%D9%81%D8%A7%D9%8A%D9%84%20%D8%A7%D9%84%D9%82%D8%A7%D8%A8%D8%B6%D8%A9%20(1).pdf" target="_blank">{{ currentContent.portfolio }}</a>
+              <a class="nav-link text-white" :href="`/portfolio?t=${Date.now()}`" target="_blank">{{ currentContent.portfolio }}</a>
             </li>
             <li class="nav-item">
               <a class="nav-link text-white" href="#contact">{{ currentContent.contact }}</a>
@@ -420,7 +420,7 @@
               <h5 class="footer-title">Quick Links</h5>
               <ul class="footer-links">
                 <li><a href="/" class="footer-link">Home</a></li>
-                <li><a href="/about-us" class="footer-link">About Us</a></li>
+                <li><a href="#about-us" class="footer-link">About Us</a></li>
                 <li><a href="/asset/pdf/%D8%A8%D8%B1%D9%88%D9%81%D8%A7%D9%8ي%D9%84%20%D8%A7%D9%84%D9%82%D8%A7%D8%A8%D8%B6%D8%A9%20(1).pdf" target="_blank" class="footer-link">Portfolio</a></li>
                 <li><a href="#contact" class="footer-link">Contact Us</a></li>
               </ul>
@@ -458,8 +458,8 @@ import { usePage } from '@inertiajs/vue3'
 
 // Get brands and contact data from backend
 const page = usePage()
-const brands = computed(() => page.props.brands || [])
-const contactInfo = computed(() => page.props.contactInfo || {})
+const brands = computed(() => (page.props.brands as any[]) || [])
+const contactInfo = computed(() => (page.props.contactInfo as any) || {})
 
 // Social media data
 interface SocialMediaLink {
@@ -499,6 +499,24 @@ const currentLanguage = ref('EN')
 
 onMounted(() => {
     fetchSocialMediaData();
+
+    // Add click event listeners for smooth scrolling
+    const aboutLinks = document.querySelectorAll('a[href="#about-us"]')
+    const contactLinks = document.querySelectorAll('a[href="#contact"]')
+
+    aboutLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault()
+            smoothScrollTo('#about-us')
+        })
+    })
+
+    contactLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault()
+            smoothScrollTo('#contact')
+        })
+    })
 });
 
 // Available languages
@@ -597,8 +615,19 @@ const toggleLanguage = () => {
   console.log('Language changed to:', currentLanguage.value)
 }
 
+// Smooth scroll function for anchor links
+const smoothScrollTo = (targetId: string) => {
+  const targetElement = document.querySelector(targetId)
+  if (targetElement) {
+    targetElement.scrollIntoView({
+      behavior: 'smooth',
+      block: 'start'
+    })
+  }
+}
+
 // Computed property for current content
-const currentContent = computed(() => content.value[currentLanguage.value])
+const currentContent = computed(() => content.value[currentLanguage.value as keyof typeof content.value])
 
 // Computed property for text direction
 const isRTL = computed(() => currentLanguage.value === 'AR')
@@ -612,6 +641,11 @@ const isRTL = computed(() => currentLanguage.value === 'AR')
   min-height: 100vh;
   background: #ffffff;
   font-family: 'Roboto', sans-serif;
+}
+
+/* Smooth scrolling for anchor links */
+html {
+  scroll-behavior: smooth;
 }
 
 /* Apply Roboto font to all text elements */
