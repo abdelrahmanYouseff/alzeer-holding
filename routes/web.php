@@ -18,6 +18,10 @@ Route::get('dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
+// Companies routes
+Route::resource('companies', App\Http\Controllers\CompaniesController::class)
+    ->middleware(['auth', 'verified']);
+
 // Public API route for website data (no authentication required)
 Route::get('api/website-data', [App\Http\Controllers\WebsiteController::class, 'getWebsiteData'])->name('website.data');
 
@@ -37,6 +41,15 @@ Route::get('portfolio', function () {
 
     abort(404, 'Portfolio file not found');
 })->name('portfolio');
+
+// Brands page route
+Route::get('brands', function () {
+    $companies = \App\Models\Company::active()->ordered()->get();
+
+    return Inertia::render('Brands', [
+        'companies' => $companies
+    ]);
+})->name('brands');
 
 require __DIR__.'/settings.php';
 require __DIR__.'/auth.php';

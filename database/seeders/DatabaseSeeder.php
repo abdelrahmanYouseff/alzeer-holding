@@ -20,5 +20,9 @@ class DatabaseSeeder extends Seeder
             'email' => 'info@alzeer-holding.com',
             'password' => 'password123',
         ]);
+
+        $this->call([
+            CompanySeeder::class,
+        ]);
     }
 }

@@ -21,6 +21,9 @@
               <a class="nav-link text-white" :href="`/portfolio?t=${Date.now()}`" target="_blank">{{ currentContent.portfolio }}</a>
             </li>
             <li class="nav-item">
+              <a class="nav-link text-white" href="/brands" target="_blank">{{ currentContent.brands }}</a>
+            </li>
+            <li class="nav-item">
               <a class="nav-link text-white" href="#contact">{{ currentContent.contact }}</a>
             </li>
           </ul>
@@ -58,6 +61,9 @@
             </li>
             <li class="nav-item">
               <a class="nav-link text-white" :href="`/portfolio?t=${Date.now()}`" target="_blank">{{ currentContent.portfolio }}</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-white" href="/brands" target="_blank">{{ currentContent.brands }}</a>
             </li>
             <li class="nav-item">
               <a class="nav-link text-white" href="#contact">{{ currentContent.contact }}</a>
