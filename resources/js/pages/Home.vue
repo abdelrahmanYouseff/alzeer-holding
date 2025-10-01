@@ -1,37 +1,37 @@
 <template>
   <div class="homepage" :class="{ 'rtl': isRTL }">
     <!-- Navigation Bar -->
-    <nav class="navbar navbar-dark bg-dark fixed-top">
-      <div class="container-fluid d-flex justify-content-between align-items-center">
-        <!-- Logo on the left -->
-        <div class="navbar-brand">
+    <nav class="navbar navbar-dark fixed-top" :class="{ 'navbar-hidden': !showNavbar }">
+      <div class="container-fluid">
+        <!-- Logo at the top center -->
+        <div class="navbar-brand-centered">
           <img src="/asset/Screenshot_1447-03-29_at_10.51.05_AM-removebg-preview.png" alt="Alzeer Holding Logo" class="logo-img" />
         </div>
 
-        <!-- Desktop Navigation Links -->
-        <div class="d-none d-md-flex align-items-center">
-          <ul class="navbar-nav flex-row me-3">
+        <!-- Desktop Navigation Links - Centered below logo -->
+        <div class="d-none d-md-flex navbar-menu-centered">
+          <ul class="navbar-nav flex-row">
             <li class="nav-item">
-              <a class="nav-link text-white px-3" href="/">{{ currentContent.home }}</a>
+              <a class="nav-link text-white" href="/">{{ currentContent.home }}</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link text-white px-3" href="#about-us">{{ currentContent.about }}</a>
+              <a class="nav-link text-white" href="#about-us">{{ currentContent.about }}</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link text-white px-3" :href="`/portfolio?t=${Date.now()}`" target="_blank">{{ currentContent.portfolio }}</a>
+              <a class="nav-link text-white" :href="`/portfolio?t=${Date.now()}`" target="_blank">{{ currentContent.portfolio }}</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link text-white px-3" href="#contact">{{ currentContent.contact }}</a>
+              <a class="nav-link text-white" href="#contact">{{ currentContent.contact }}</a>
             </li>
           </ul>
 
-            <!-- Language Selector -->
-            <div class="language-selector">
-              <button class="language-btn" @click="toggleLanguage">
-                <img src="/asset/icons/earth-globe.png" alt="Language" class="language-icon" />
-                <span class="language-text">{{ currentLanguage }}</span>
-              </button>
-            </div>
+          <!-- Language Selector -->
+          <div class="language-selector">
+            <button class="language-btn" @click="toggleLanguage">
+              <img src="/asset/icons/earth-globe.png" alt="Language" class="language-icon" />
+              <span class="language-text">{{ currentLanguage }}</span>
+            </button>
+          </div>
         </div>
 
         <!-- Mobile Menu Button -->
@@ -93,13 +93,13 @@
 
       <!-- Hero Content -->
       <div class="hero-content">
-        <div class="container-fluid" style="padding: 0;">
-          <div class="row" style="margin: 0;">
-            <div class="col-lg-6 text-left" style="margin: 0; padding: 0 0 0 60px;">
-              <h1 class="hero-title">{{ currentContent.heroTitle }}</h1>
-              <p class="hero-subtitle">{{ currentContent.heroSubtitle }}</p>
-    </div>
-        </div>
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-lg-8 col-xl-7">
+              <h1 class="hero-title" v-html="currentContent.heroTitle"></h1>
+              <p class="hero-subtitle" v-html="currentContent.heroSubtitle"></p>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -495,10 +495,37 @@ const openSocialLink = (url: string, platform: string) => {
 };
 
 // Language state
-const currentLanguage = ref('EN')
+const currentLanguage = ref('AR')
+
+// Navbar visibility state
+const showNavbar = ref(true)
+let lastScrollPosition = 0
+
+// Handle navbar visibility on scroll
+const handleScroll = () => {
+    const currentScrollPosition = window.pageYOffset || document.documentElement.scrollTop
+
+    // If scrolling down and past 100px, hide navbar
+    if (currentScrollPosition > lastScrollPosition && currentScrollPosition > 100) {
+        showNavbar.value = false
+    }
+    // If scrolling up, show navbar
+    else if (currentScrollPosition < lastScrollPosition) {
+        showNavbar.value = true
+    }
+
+    lastScrollPosition = currentScrollPosition
+}
 
 onMounted(() => {
     fetchSocialMediaData();
+
+    // Set default language direction to Arabic (RTL)
+    document.documentElement.dir = 'rtl'
+    document.documentElement.lang = 'ar'
+
+    // Add scroll event listener for navbar
+    window.addEventListener('scroll', handleScroll)
 
     // Add click event listeners for smooth scrolling
     const aboutLinks = document.querySelectorAll('a[href="#about-us"]')
@@ -528,8 +555,8 @@ const languages = [
 // Content translations
 const content = ref({
   EN: {
-    heroTitle: "Fahad Nawaf Al-Zeer Holding, we redefine",
-    heroSubtitle: "essence of investment by turning ambition into tangible",
+    heroTitle: "Fahad Nawaf Al-Zeer Holding,<br>we redefine the essence of investment",
+    heroSubtitle: "by turning ambition into tangible achievements",
     aboutUs: "About us",
     brandsTitle: "Our Brands",
     brandsSubtitle: "Discover the diverse portfolio of Alzeer Holding",
@@ -562,8 +589,8 @@ const content = ref({
     copyright: "© 2024 Alzeer Holding. All rights reserved."
   },
   AR: {
-    heroTitle: "فهد نواف الزير القابضة، نعيد تعريف",
-    heroSubtitle: "جوهر الاستثمار بتحويل الطموح إلى إنجازات ملموسة",
+    heroTitle: "فهد نواف الزير القابضة،<br>نعيد تعريف جوهر الاستثمار",
+    heroSubtitle: "بتحويل الطموح إلى إنجازات ملموسة",
     aboutUs: "من نحن",
     brandsTitle: "علاماتنا التجارية",
     brandsSubtitle: "اكتشف محفظة الزير القابضة المتنوعة",
@@ -679,13 +706,26 @@ html {
   direction: rtl;
 }
 
+[dir="ltr"] .hero-title {
+  text-align: left;
+}
+
+[dir="ltr"] .hero-subtitle {
+  text-align: left;
+}
+
 [dir="rtl"] .footer-bottom-links {
   justify-content: flex-start;
 }
 
 [dir="rtl"] .language-selector {
   margin-right: 0;
-  margin-left: auto;
+  margin-left: 0;
+}
+
+[dir="rtl"] .navbar-toggler {
+  right: auto;
+  left: 1rem;
 }
 
 h1, h2, h3, h4, h5, h6, p, span, div, a, li, ul, ol, button, input, textarea, label {
@@ -694,30 +734,85 @@ h1, h2, h3, h4, h5, h6, p, span, div, a, li, ul, ol, button, input, textarea, la
 
 /* Navigation Styles */
 .navbar {
-  background-color: #444444 !important;
-  padding: 1rem 0;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  background-color: transparent !important;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  padding: 1.5rem 0 1rem 0;
+  box-shadow: none;
+  transition: transform 0.3s ease, background-color 0.3s ease;
+  transform: translateY(0);
+}
+
+.navbar-hidden {
+  transform: translateY(-100%);
+}
+
+.navbar .container-fluid {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+/* Logo centered at top */
+.navbar-brand-centered {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin-bottom: 0.5rem;
 }
 
 .logo-img {
-  height: 80px;
+  height: 70px;
   width: auto;
   transition: transform 0.3s ease;
-  margin-left: 2rem;
 }
 
 .logo-img:hover {
   transform: scale(1.05);
 }
 
+/* Menu centered below logo */
+.navbar-menu-centered {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  width: 100%;
+}
+
+.navbar-nav {
+  gap: 2.5rem;
+  align-items: center;
+}
+
 .navbar-nav .nav-link {
   font-weight: 500;
-  font-size: 16px;
-  transition: color 0.3s ease;
+  font-size: 17px;
+  transition: all 0.3s ease;
+  padding: 0.5rem 1rem;
+  position: relative;
 }
 
 .navbar-nav .nav-link:hover {
   color: #ffd700 !important;
+  transform: translateY(-2px);
+}
+
+.navbar-nav .nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 2px;
+  background-color: #ffd700;
+  transition: width 0.3s ease;
+}
+
+.navbar-nav .nav-link:hover::after {
+  width: 80%;
 }
 
 /* Language Selector Styles */
@@ -838,20 +933,32 @@ h1, h2, h3, h4, h5, h6, p, span, div, a, li, ul, ol, button, input, textarea, la
   width: 100%;
 }
 
+.hero-content .container-fluid {
+  width: 100%;
+  padding-left: 3rem;
+  padding-right: 3rem;
+}
+
 .hero-title {
-  font-size: 5rem;
-  font-weight: 700;
-  margin-bottom: 1.5rem;
-  text-shadow: none;
+  font-size: 3rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.6);
   animation: fadeInUp 1s ease-out;
+  line-height: 1.4;
+  text-align: right;
+  letter-spacing: 0.5px;
 }
 
 .hero-subtitle {
-  font-size: 1.5rem;
-  font-weight: 300;
+  font-size: 2rem;
+  font-weight: 500;
   margin-bottom: 2rem;
-  text-shadow: none;
+  text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.5);
   animation: fadeInUp 1s ease-out 0.3s both;
+  line-height: 1.4;
+  text-align: right;
+  letter-spacing: 0.3px;
 }
 
 @keyframes fadeInUp {
@@ -1003,11 +1110,26 @@ h1, h2, h3, h4, h5, h6, p, span, div, a, li, ul, ol, button, input, textarea, la
 /* Mobile Responsive Adjustments */
 @media (max-width: 767.98px) {
   .navbar {
-    padding: 0.75rem 0;
+    padding: 1rem 0;
+  }
+
+  .navbar .container-fluid {
+    position: relative;
+  }
+
+  .navbar-brand-centered {
+    margin-bottom: 0;
   }
 
   .logo-img {
-    height: 65px;
+    height: 60px;
+  }
+
+  .navbar-toggler {
+    position: absolute;
+    top: 50%;
+    right: 1rem;
+    transform: translateY(-50%);
   }
 
   .hero-video-section {
@@ -1015,13 +1137,15 @@ h1, h2, h3, h4, h5, h6, p, span, div, a, li, ul, ol, button, input, textarea, la
   }
 
   .hero-title {
-    font-size: 3.5rem;
-    margin-bottom: 1rem;
+    font-size: 3rem;
+    margin-bottom: 1.5rem;
+    line-height: 1.3;
   }
 
   .hero-subtitle {
-    font-size: 1.5rem;
+    font-size: 2rem;
     margin-bottom: 1.5rem;
+    line-height: 1.4;
   }
 
   .content-area {
