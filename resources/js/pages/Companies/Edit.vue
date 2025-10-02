@@ -77,9 +77,6 @@ const submit = () => {
         forceFormData: true,
         onSuccess: () => {
             // Redirect handled by Inertia
-        },
-        onError: (errors) => {
-            console.log('Form errors:', errors);
         }
     });
 };

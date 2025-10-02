@@ -101,11 +101,11 @@ class CompaniesController extends Controller
     public function update(Request $request, Company $company)
     {
         $validated = $request->validate([
-            'name' => 'required|string|max:255',
+            'name' => 'sometimes|required|string|max:255',
             'name_ar' => 'nullable|string|max:255',
-            'description' => 'required|string',
+            'description' => 'sometimes|required|string',
             'description_ar' => 'nullable|string',
-            'location' => 'required|string|max:255',
+            'location' => 'sometimes|required|string|max:255',
             'location_ar' => 'nullable|string|max:255',
             'logo' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'website' => 'nullable|url|max:255',
