@@ -578,12 +578,12 @@ const isRTL = computed(() => currentLanguage.value === 'AR')
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 120px;
-  height: 120px;
+  width: 150px;
+  height: 150px;
   background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-  border-radius: 25px;
+  border-radius: 30px;
   border: 2px solid #e9ecef;
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
   transition: all 0.3s ease;
 }
 
@@ -928,8 +928,8 @@ const isRTL = computed(() => currentLanguage.value === 'AR')
   }
 
   .company-logo {
-    width: 100px;
-    height: 100px;
+    width: 120px;
+    height: 120px;
   }
 
   .company-logo-img {
