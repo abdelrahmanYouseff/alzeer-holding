@@ -128,7 +128,13 @@
                 <div class="company-card" :class="{ 'coming-soon': !company.is_active }">
                   <div class="company-header">
                     <div class="company-logo">
-                      <div class="logo-placeholder">{{ String(index + 1).padStart(2, '0') }}</div>
+                      <img
+                        v-if="company.logo_path"
+                        :src="`/storage/${company.logo_path}`"
+                        :alt="currentLanguage === 'AR' ? company.name_ar : company.name"
+                        class="company-logo-img"
+                      />
+                      <div v-else class="logo-placeholder">{{ String(index + 1).padStart(2, '0') }}</div>
                     </div>
                     <div class="company-info">
                       <h3 class="company-name">{{ currentLanguage === 'AR' ? company.name_ar : company.name }}</h3>
@@ -143,29 +149,27 @@
                   <div class="company-social" v-if="company.is_active">
                     <h4>Follow Us</h4>
                     <div class="social-links">
-                      <a v-if="company.website" :href="company.website" class="social-link" title="Website" target="_blank">
-                        <i class="fas fa-globe"></i>
+                      <a v-if="company.website" :href="company.website" class="social-link website-link" title="Website" target="_blank">
+                        <img src="/icons/web (1).png" alt="Website" class="social-icon website-icon" />
                       </a>
-                      <a v-if="company.linkedin" :href="company.linkedin" class="social-link" title="LinkedIn" target="_blank">
-                        <i class="fab fa-linkedin-in"></i>
+                      <a v-if="company.linkedin" :href="company.linkedin" class="social-link linkedin-link" title="LinkedIn" target="_blank">
+                        <img src="/icons/linkedin.png" alt="LinkedIn" class="social-icon linkedin-icon" />
                       </a>
                       <a v-if="company.twitter" :href="company.twitter" class="social-link" title="Twitter" target="_blank">
-                        <i class="fab fa-twitter"></i>
+                        <img src="/icons/twitter.png" alt="Twitter" class="social-icon" />
                       </a>
                       <a v-if="company.instagram" :href="company.instagram" class="social-link" title="Instagram" target="_blank">
-                        <i class="fab fa-instagram"></i>
+                        <img src="/icons/instagram.png" alt="Instagram" class="social-icon" />
                       </a>
-                      <a v-if="company.facebook" :href="company.facebook" class="social-link" title="Facebook" target="_blank">
-                        <i class="fab fa-facebook-f"></i>
+                      <a v-if="company.facebook" :href="company.facebook" class="social-link facebook-link" title="Facebook" target="_blank">
+                        <img src="/icons/facebook (1).png" alt="Facebook" class="social-icon facebook-icon" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';" />
+                        <i class="fab fa-facebook-f" style="display: none; font-size: 1.3rem;"></i>
                       </a>
                       <a v-if="company.youtube" :href="company.youtube" class="social-link" title="YouTube" target="_blank">
-                        <i class="fab fa-youtube"></i>
+                        <img src="/icons/youtube.png" alt="YouTube" class="social-icon" />
                       </a>
                       <a v-if="company.whatsapp" :href="`https://wa.me/${company.whatsapp}`" class="social-link" title="WhatsApp" target="_blank">
-                        <i class="fab fa-whatsapp"></i>
-                      </a>
-                      <a v-if="company.email" :href="`mailto:${company.email}`" class="social-link" title="Email">
-                        <i class="fas fa-envelope"></i>
+                        <img src="/icons/whatsapp.png" alt="WhatsApp" class="social-icon" />
                       </a>
                     </div>
                   </div>
@@ -524,15 +528,28 @@ const isRTL = computed(() => currentLanguage.value === 'AR')
 }
 
 .company-card {
-  background: #ffffff;
-  border-radius: 20px;
+  background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+  border-radius: 25px;
   padding: 2.5rem;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-  transition: all 0.3s ease;
-  border: 1px solid #f0f0f0;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08);
+  transition: all 0.4s ease;
+  border: 1px solid #e9ecef;
   height: 100%;
   display: flex;
   flex-direction: column;
+  position: relative;
+  overflow: hidden;
+}
+
+.company-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+  border-radius: 25px 25px 0 0;
 }
 
 .company-card:hover {
@@ -547,13 +564,20 @@ const isRTL = computed(() => currentLanguage.value === 'AR')
 
 .company-header {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   margin-bottom: 2rem;
   gap: 1.5rem;
+  padding: 1rem;
+  background: rgba(102, 126, 234, 0.05);
+  border-radius: 15px;
+  border: 1px solid rgba(102, 126, 234, 0.1);
 }
 
 .company-logo {
   flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .logo-placeholder {
@@ -568,6 +592,25 @@ const isRTL = computed(() => currentLanguage.value === 'AR')
   font-size: 1.5rem;
   font-weight: bold;
   box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+}
+
+.company-logo-img {
+  width: 80px;
+  height: 80px;
+  border-radius: 20px;
+  object-fit: contain;
+  object-position: center;
+  background-color: #ffffff;
+  padding: 8px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+  border: 2px solid #f0f0f0;
+}
+
+.company-logo-img:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+  border-color: #667eea;
 }
 
 .company-card.coming-soon .logo-placeholder {
@@ -645,6 +688,29 @@ const isRTL = computed(() => currentLanguage.value === 'AR')
   font-size: 1.3rem;
   position: relative;
   overflow: hidden;
+  padding: 8px;
+  box-sizing: border-box;
+}
+
+.social-icon {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+  object-position: center;
+  filter: brightness(0) invert(1);
+  transition: all 0.3s ease;
+  display: block;
+  max-width: 100%;
+  max-height: 100%;
+  background: transparent;
+}
+
+/* Override filter for Facebook icon */
+.facebook-icon {
+  filter: none !important;
+  background: white;
+  border-radius: 4px;
+  padding: 2px;
 }
 
 .social-link::before {
@@ -667,6 +733,52 @@ const isRTL = computed(() => currentLanguage.value === 'AR')
   box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
   color: white;
   text-decoration: none;
+}
+
+.social-link:hover .social-icon {
+  transform: scale(1.1);
+}
+
+/* Facebook icon specific styles */
+.facebook-link {
+  background: #475a94 !important;
+}
+
+.facebook-icon {
+  filter: none !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  background: white;
+  border-radius: 4px;
+}
+
+/* LinkedIn icon specific styles */
+.linkedin-link {
+  background: #0077b5 !important;
+}
+
+.linkedin-icon {
+  filter: none !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  background: white;
+  border-radius: 4px;
+  padding: 2px;
+}
+
+/* Website icon specific styles */
+.website-link {
+  background: white !important;
+  border: 2px solid #e9ecef;
+}
+
+.website-icon {
+  filter: none !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  background: transparent;
+  border-radius: 4px;
+  padding: 2px;
 }
 
 .social-link:nth-child(1) { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
@@ -788,6 +900,35 @@ const isRTL = computed(() => currentLanguage.value === 'AR')
     width: 45px;
     height: 45px;
     font-size: 1.1rem;
+    padding: 6px;
+    box-sizing: border-box;
+  }
+
+  .social-icon {
+    width: 20px;
+    height: 20px;
+    object-fit: contain;
+    object-position: center;
+    display: block;
+    max-width: 100%;
+    max-height: 100%;
+  }
+
+  .company-logo-img {
+    width: 70px;
+    height: 70px;
+    padding: 6px;
+  }
+
+  .logo-placeholder {
+    width: 70px;
+    height: 70px;
+    font-size: 1.2rem;
+  }
+
+  .company-header {
+    padding: 0.8rem;
+    gap: 1rem;
   }
 }
 </style>

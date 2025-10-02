@@ -49,9 +49,6 @@ const submit = () => {
         forceFormData: true,
         onSuccess: () => {
             // Redirect handled by Inertia
-        },
-        onError: (errors) => {
-            console.log('Form errors:', errors);
         }
     });
 };
@@ -119,23 +116,25 @@ const submit = () => {
 
                             <div class="space-y-2">
                                 <Label for="description">Description *</Label>
-                                <Textarea
+                                <textarea
                                     id="description"
                                     v-model="form.description"
                                     placeholder="Enter company description"
                                     rows="3"
                                     required
+                                    class="flex min-h-[80px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
                                 />
                                 <InputError :message="form.errors.description" />
                             </div>
 
                             <div class="space-y-2">
                                 <Label for="description_ar">Description (Arabic)</Label>
-                                <Textarea
+                                <textarea
                                     id="description_ar"
                                     v-model="form.description_ar"
                                     placeholder="وصف الشركة"
                                     rows="3"
+                                    class="flex min-h-[80px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
                                 />
                                 <InputError :message="form.errors.description_ar" />
                             </div>
