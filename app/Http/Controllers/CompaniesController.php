@@ -35,10 +35,6 @@ class CompaniesController extends Controller
      */
     public function store(Request $request)
     {
-        // Debug: Log all incoming data
-        \Log::info('Company creation - All request data:', $request->all());
-        \Log::info('Company creation - Description field specifically:', $request->input('description'));
-
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'name_ar' => 'nullable|string|max:255',

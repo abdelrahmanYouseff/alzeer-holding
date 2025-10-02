@@ -45,22 +45,10 @@ const form = useForm({
 });
 
 const submit = () => {
-    // Debug: Log form data before submission
-    console.log('Form data before submission:', {
-        name: form.name,
-        description: form.description,
-        location: form.location,
-        logo: form.logo
-    });
-
     form.post('/companies', {
         forceFormData: true,
         onSuccess: () => {
             // Redirect handled by Inertia
-        },
-        onError: (errors) => {
-            console.log('Form errors:', errors);
-            console.log('Form data when error occurred:', form.data());
         }
     });
 };
@@ -147,6 +135,7 @@ const submit = () => {
                                     v-model="form.description_ar"
                                     placeholder="وصف الشركة"
                                     rows="3"
+                                    name="description_ar"
                                     class="flex min-h-[80px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
                                 />
                                 <InputError :message="form.errors.description_ar" />
