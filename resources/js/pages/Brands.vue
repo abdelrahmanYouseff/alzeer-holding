@@ -122,9 +122,9 @@
 
         <!-- Companies Section -->
         <div class="companies-section">
-          <div class="row">
+          <div class="row justify-content-center">
             <template v-for="(company, index) in companies" :key="company.id">
-              <div class="col-lg-6 col-md-12 mb-5">
+              <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
                 <div class="company-card" :class="{ 'coming-soon': !company.is_active }">
                   <div class="company-header">
                     <div class="company-logo">
@@ -578,6 +578,13 @@ const isRTL = computed(() => currentLanguage.value === 'AR')
   display: flex;
   align-items: center;
   justify-content: center;
+  width: 120px;
+  height: 120px;
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  border-radius: 25px;
+  border: 2px solid #e9ecef;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
 }
 
 .logo-placeholder {
@@ -605,6 +612,12 @@ const isRTL = computed(() => currentLanguage.value === 'AR')
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
   transition: all 0.3s ease;
   border: 2px solid #f0f0f0;
+}
+
+.company-logo:hover {
+  transform: scale(1.05);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+  border-color: #667eea;
 }
 
 .company-logo-img:hover {
@@ -912,6 +925,11 @@ const isRTL = computed(() => currentLanguage.value === 'AR')
     display: block;
     max-width: 100%;
     max-height: 100%;
+  }
+
+  .company-logo {
+    width: 100px;
+    height: 100px;
   }
 
   .company-logo-img {
