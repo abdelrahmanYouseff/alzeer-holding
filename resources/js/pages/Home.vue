@@ -56,9 +56,6 @@
       </transition>
     </header>
 
-    <!-- Spacer for fixed header -->
-    <div class="header-spacer"></div>
-
     <!-- Hero Section -->
     <section id="home" class="hero-section">
       <!-- Video Background -->
@@ -70,7 +67,7 @@
         playsinline
           class="video-element"
       >
-          <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" type="video/mp4" />
+          <source src="/asset/background-video.mp4" type="video/mp4" />
       </video>
       <div class="video-overlay"></div>
       </div>
@@ -461,10 +458,10 @@ const toggleMobileMenu = () => {
   top: 0;
   width: 100%;
   z-index: 50;
-  background: rgba(0, 0, 0, 0.9);
+  background: transparent;
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  border-bottom: 1px solid rgba(217, 187, 89, 0.2);
+  border-bottom: 1px solid rgba(217, 187, 89, 0.1);
 }
 
 .container {
@@ -601,10 +598,6 @@ const toggleMobileMenu = () => {
   transform: translateY(-10px);
 }
 
-/* Header Spacer */
-.header-spacer {
-  height: 72px;
-}
 
 /* Desktop Styles */
 @media (min-width: 768px) {
@@ -640,6 +633,8 @@ const toggleMobileMenu = () => {
   align-items: center;
   justify-content: center;
   overflow: hidden;
+  margin-top: 0;
+  padding-top: 0;
 }
 
 /* Video Background */
