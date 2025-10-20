@@ -6,7 +6,8 @@ use Inertia\Inertia;
 Route::get('/', function () {
     $brands = \App\Models\Brand::where('is_active', true)->orderBy('sort_order')->get();
     $contactInfo = \App\Models\ContactInformation::first();
-    $companies = \App\Models\Company::active()->ordered()->get();
+    // Show all companies (not only active) to avoid missing records on server due to is_active being null/false
+    $companies = \App\Models\Company::ordered()->get();
 
     return Inertia::render('Home', [
         'brands' => $brands,
