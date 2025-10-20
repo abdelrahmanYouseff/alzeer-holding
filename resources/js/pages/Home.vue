@@ -70,19 +70,19 @@
           <source src="/asset/background-video.mp4" type="video/mp4" />
       </video>
       <div class="video-overlay"></div>
-      </div>
+            </div>
 
       <!-- Animated Background Elements -->
       <div class="animated-bg">
         <div class="bg-circle bg-circle-1"></div>
         <div class="bg-circle bg-circle-2"></div>
-            </div>
+          </div>
 
       <!-- Content -->
       <div class="hero-content">
         <div class="hero-badge">
           <span class="badge-text">Leading the Future of Investment</span>
-          </div>
+        </div>
 
         <h1 class="hero-title">
           ALZEER GROUP
@@ -131,14 +131,14 @@
             </svg>
             Watch Story
           </button>
-        </div>
+              </div>
 
         <!-- Scroll Indicator -->
         <div class="scroll-indicator">
           <div class="scroll-border">
             <div class="scroll-dot"></div>
-          </div>
-        </div>
+                </div>
+              </div>
               </div>
       </section>
 
@@ -157,7 +157,7 @@
             Discover the diverse portfolio of companies under Alzeer Group Holding,
             each leading innovation and excellence in their respective industries.
           </p>
-              </div>
+                </div>
 
         <!-- Services Grid (Companies from DB) -->
         <div class="services-grid">
@@ -179,9 +179,9 @@
                   </svg>
                 </a>
               </div>
+              </div>
+              </div>
             </div>
-          </div>
-        </div>
 
         <!-- Call to Action -->
         <div class="services-cta">
@@ -404,7 +404,7 @@ const companies = computed(() => (page.props.companies as any[]) || [])
 .btn-menu-mobile {
   display: flex;
   align-items: center;
-    justify-content: center;
+  justify-content: center;
   padding: 0.5rem;
   background: transparent;
   border: none;
@@ -493,7 +493,7 @@ const companies = computed(() => (page.props.companies as any[]) || [])
   min-height: 100vh;
   display: flex;
   align-items: center;
-  justify-content: center;
+    justify-content: center;
   overflow: hidden;
   margin-top: 0;
   padding-top: 0;
@@ -513,7 +513,7 @@ const companies = computed(() => (page.props.companies as any[]) || [])
 }
 
 .video-overlay {
-    position: absolute;
+  position: absolute;
   inset: 0;
   background: rgba(0, 0, 0, 0.7);
 }
@@ -675,7 +675,7 @@ const companies = computed(() => (page.props.companies as any[]) || [])
 
 /* Scroll Indicator */
 .scroll-indicator {
-  position: absolute;
+    position: absolute;
   bottom: 2rem;
   left: 50%;
   transform: translateX(-50%);
@@ -784,6 +784,7 @@ const companies = computed(() => (page.props.companies as any[]) || [])
   display: grid;
   gap: 2rem;
   margin-bottom: 4rem;
+  align-items: stretch; /* ensure equal height cards */
 }
 
 /* Service Card */
@@ -793,6 +794,7 @@ const companies = computed(() => (page.props.companies as any[]) || [])
   border-radius: 1rem;
   transition: all 0.5s ease;
   cursor: pointer;
+  height: 100%;
 }
 
 .service-card:hover {
@@ -803,6 +805,9 @@ const companies = computed(() => (page.props.companies as any[]) || [])
 
 .service-content {
   padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
 
 /* Service Icon */
@@ -888,11 +893,20 @@ const companies = computed(() => (page.props.companies as any[]) || [])
   color: #9ca3af;
   line-height: 1.75;
   margin-bottom: 0;
+  max-height: 0; /* hidden by default */
+  opacity: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease, opacity 0.3s ease;
+}
+
+.service-card:hover .service-text {
+  max-height: 200px;
+  opacity: 1;
 }
 
 /* Service Footer */
 .service-footer {
-  margin-top: 1.5rem;
+  margin-top: auto; /* push footer to bottom for equal heights */
   padding-top: 1rem;
   border-top: 1px solid #1f2937;
 }
