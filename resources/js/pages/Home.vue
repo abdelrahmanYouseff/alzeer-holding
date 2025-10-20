@@ -159,169 +159,29 @@
           </p>
               </div>
 
-        <!-- Services Grid -->
+        <!-- Services Grid (Companies from DB) -->
         <div class="services-grid">
-          <!-- Service 1: Real Estate Development -->
-          <div class="service-card">
+          <div v-for="company in companies" :key="company.id" class="service-card">
             <div class="service-content">
-              <div class="service-icon-wrapper service-icon-blue">
-                <svg class="service-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <rect width="16" height="20" x="4" y="2" rx="2" ry="2"></rect>
-                  <path d="M9 22v-4h6v4"></path>
-                  <path d="M8 6h.01"></path>
-                  <path d="M16 6h.01"></path>
-                  <path d="M12 6h.01"></path>
-                  <path d="M12 10h.01"></path>
-                  <path d="M12 14h.01"></path>
-                  <path d="M16 10h.01"></path>
-                  <path d="M16 14h.01"></path>
-                  <path d="M8 10h.01"></path>
-                  <path d="M8 14h.01"></path>
-                </svg>
-                </div>
-              <h3 class="service-title">Alzeer Real Estate</h3>
-              <p class="service-text">
-                Leading real estate development company specializing in premium commercial and residential properties across strategic locations.
-              </p>
-              <div class="service-footer">
-                <div class="service-link">
-                  Learn More
-                  <svg class="service-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-                  </svg>
-              </div>
-                </div>
-              </div>
-                </div>
-
-          <!-- Service 2: Technology Investments -->
-          <div class="service-card">
-            <div class="service-content">
-              <div class="service-icon-wrapper service-icon-purple">
-                <svg class="service-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <rect width="16" height="16" x="4" y="4" rx="2"></rect>
-                  <rect width="6" height="6" x="9" y="9" rx="1"></rect>
-                  <path d="M15 2v2"></path>
-                  <path d="M15 20v2"></path>
-                  <path d="M2 15h2"></path>
-                  <path d="M2 9h2"></path>
-                  <path d="M20 15h2"></path>
-                  <path d="M20 9h2"></path>
-                  <path d="M9 2v2"></path>
-                  <path d="M9 20v2"></path>
-                </svg>
-              </div>
-              <h3 class="service-title">Alzeer Technology Solutions</h3>
-              <p class="service-text">
-                Innovative technology company focusing on fintech, AI, and digital transformation solutions for modern businesses.
-              </p>
-              <div class="service-footer">
-                <div class="service-link">
-                  Learn More
-                  <svg class="service-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-                  </svg>
-                </div>
-              </div>
-                </div>
+              <div class="service-icon-wrapper">
+                <img v-if="company.logo_path" :src="`/storage/${company.logo_path}`" :alt="company.name" class="company-logo" />
+                <div v-else class="company-logo-fallback">{{ (company.name || '?').charAt(0) }}</div>
               </div>
 
-          <!-- Service 3: Healthcare Innovation -->
-          <div class="service-card">
-            <div class="service-content">
-              <div class="service-icon-wrapper service-icon-red">
-                <svg class="service-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"></path>
-                </svg>
-                </div>
-              <h3 class="service-title">Alzeer Healthcare</h3>
-              <p class="service-text">
-                Advanced healthcare services company providing cutting-edge medical solutions and wellness programs.
-              </p>
-              <div class="service-footer">
-                <div class="service-link">
-                  Learn More
-                  <svg class="service-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-                  </svg>
-                </div>
-              </div>
-                </div>
-              </div>
+              <h3 class="service-title">{{ company.name }}</h3>
+              <p class="service-text">{{ company.description || '—' }}</p>
 
-          <!-- Service 4: Sustainable Energy -->
-          <div class="service-card">
-            <div class="service-content">
-              <div class="service-icon-wrapper service-icon-green">
-                <svg class="service-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
-                </svg>
-                </div>
-              <h3 class="service-title">Alzeer Energy</h3>
-              <p class="service-text">
-                Renewable energy company delivering sustainable power solutions and green technology innovations.
-              </p>
               <div class="service-footer">
-                <div class="service-link">
+                <a :href="company.website || '#'" class="service-link" target="_blank" rel="noopener">
                   Learn More
                   <svg class="service-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
                   </svg>
-                </div>
-            </div>
-              </div>
-                </div>
-
-          <!-- Service 5: Strategic Advisory -->
-          <div class="service-card">
-            <div class="service-content">
-              <div class="service-icon-wrapper service-icon-yellow">
-                <svg class="service-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <rect width="20" height="14" x="2" y="7" rx="2" ry="2"></rect>
-                  <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
-                </svg>
-              </div>
-              <h3 class="service-title">Alzeer Consulting</h3>
-              <p class="service-text">
-                Premier consulting firm providing strategic advisory and business transformation services to global clients.
-              </p>
-              <div class="service-footer">
-                <div class="service-link">
-                  Learn More
-                  <svg class="service-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-                  </svg>
-                </div>
-              </div>
+                </a>
               </div>
             </div>
-
-          <!-- Service 6: Partnership Development -->
-          <div class="service-card">
-            <div class="service-content">
-              <div class="service-icon-wrapper service-icon-indigo">
-                <svg class="service-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
-                  <circle cx="9" cy="7" r="4"></circle>
-                  <path d="M22 21v-2a4 4 0 0 0-3-3.87"></path>
-                  <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
-                </svg>
-            </div>
-              <h3 class="service-title">Alzeer Ventures</h3>
-              <p class="service-text">
-                Investment and venture capital firm fostering strategic partnerships and supporting high-growth startups.
-              </p>
-              <div class="service-footer">
-                <div class="service-link">
-                  Learn More
-                  <svg class="service-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-                  </svg>
           </div>
-              </div>
-              </div>
-              </div>
-            </div>
+        </div>
 
         <!-- Call to Action -->
         <div class="services-cta">
@@ -436,13 +296,15 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
+import { usePage } from '@inertiajs/vue3'
 
 const mobileMenuOpen = ref(false)
+const toggleMobileMenu = () => { mobileMenuOpen.value = !mobileMenuOpen.value }
 
-const toggleMobileMenu = () => {
-  mobileMenuOpen.value = !mobileMenuOpen.value
-}
+// Companies from server (Inertia props)
+const page = usePage()
+const companies = computed(() => (page.props.companies as any[]) || [])
 </script>
 
 <style scoped>
@@ -963,6 +825,26 @@ const toggleMobileMenu = () => {
   width: 2rem;
   height: 2rem;
   color: #ffffff;
+}
+
+/* Company logo inside card */
+.company-logo {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 0.75rem;
+}
+
+.company-logo-fallback {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(217, 187, 89, 0.15);
+  color: #d9bb59;
+  font-weight: 700;
+  border-radius: 0.75rem;
 }
 
 .service-icon-blue {

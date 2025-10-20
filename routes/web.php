@@ -6,10 +6,12 @@ use Inertia\Inertia;
 Route::get('/', function () {
     $brands = \App\Models\Brand::where('is_active', true)->orderBy('sort_order')->get();
     $contactInfo = \App\Models\ContactInformation::first();
+    $companies = \App\Models\Company::active()->ordered()->get();
 
     return Inertia::render('Home', [
         'brands' => $brands,
-        'contactInfo' => $contactInfo
+        'contactInfo' => $contactInfo,
+        'companies' => $companies
     ]);
 })->name('home');
 
