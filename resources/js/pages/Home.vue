@@ -11,16 +11,19 @@
 
           <!-- Navigation - Desktop -->
           <nav class="nav-desktop">
-            <a href="#home" class="nav-link">Home</a>
-            <a href="#about" class="nav-link">About</a>
-            <a href="#companies" class="nav-link">Companies</a>
-            <a href="#portfolio" class="nav-link">Portfolio</a>
-            <a href="#contact" class="nav-link">Contact</a>
+            <a href="#home" class="nav-link">{{ labels.home }}</a>
+            <a href="#about" class="nav-link">{{ labels.about }}</a>
+            <a href="#companies" class="nav-link">{{ labels.companies }}</a>
+            <a href="#portfolio" class="nav-link">{{ labels.portfolio }}</a>
+            <a href="#contact" class="nav-link">{{ labels.contact }}</a>
           </nav>
 
           <!-- Actions -->
           <div class="header-actions">
-            <button class="btn-get-started">Get Started</button>
+            <div class="language-switch">
+              <button class="lang-btn" :class="{ active: currentLanguage === 'EN' }" @click="setLanguage('EN')">EN</button>
+              <button class="lang-btn" :class="{ active: currentLanguage === 'AR' }" @click="setLanguage('AR')">AR</button>
+          </div>
             <button class="btn-menu-mobile" @click="toggleMobileMenu">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -46,11 +49,11 @@
       <transition name="mobile-menu">
         <div v-if="mobileMenuOpen" class="mobile-menu">
           <nav class="mobile-nav">
-            <a href="#home" class="mobile-nav-link" @click="toggleMobileMenu">Home</a>
-            <a href="#about" class="mobile-nav-link" @click="toggleMobileMenu">About</a>
-            <a href="#companies" class="mobile-nav-link" @click="toggleMobileMenu">Companies</a>
-            <a href="#portfolio" class="mobile-nav-link" @click="toggleMobileMenu">Portfolio</a>
-            <a href="#contact" class="mobile-nav-link" @click="toggleMobileMenu">Contact</a>
+            <a href="#home" class="mobile-nav-link" @click="toggleMobileMenu">{{ labels.home }}</a>
+            <a href="#about" class="mobile-nav-link" @click="toggleMobileMenu">{{ labels.about }}</a>
+            <a href="#companies" class="mobile-nav-link" @click="toggleMobileMenu">{{ labels.companies }}</a>
+            <a href="#portfolio" class="mobile-nav-link" @click="toggleMobileMenu">{{ labels.portfolio }}</a>
+            <a href="#contact" class="mobile-nav-link" @click="toggleMobileMenu">{{ labels.contact }}</a>
     </nav>
                 </div>
       </transition>
@@ -81,22 +84,16 @@
       <!-- Content -->
       <div class="hero-content">
         <div class="hero-badge">
-          <span class="badge-text">Leading the Future of Investment</span>
+          <span class="badge-text">{{ labels.heroBadge }}</span>
         </div>
 
-        <h1 class="hero-title">
-          ALZEER GROUP
-          <br />
-          HOLDING
-        </h1>
+        <h1 class="hero-title" v-html="labels.heroTitle"></h1>
 
-        <p class="hero-description">
-          Pioneering excellence across diverse industries through strategic investments and innovative solutions for a sustainable future.
-        </p>
+        <p class="hero-description" v-html="labels.heroDescription"></p>
 
         <div class="hero-actions">
           <button class="btn-primary">
-            Explore Our Vision
+            {{ labels.heroCtaPrimary }}
             <svg
               class="btn-icon"
               xmlns="http://www.w3.org/2000/svg"
@@ -113,32 +110,14 @@
               <polyline points="12 5 19 12 12 19"></polyline>
             </svg>
           </button>
-
-          <button class="btn-secondary">
-            <svg
-              class="btn-icon-left"
-              xmlns="http://www.w3.org/2000/svg"
-              width="20"
-              height="20"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            >
-              <polygon points="5 3 19 12 5 21 5 3"></polygon>
-            </svg>
-            Watch Story
-          </button>
-              </div>
+                </div>
 
         <!-- Scroll Indicator -->
         <div class="scroll-indicator">
           <div class="scroll-border">
             <div class="scroll-dot"></div>
-                </div>
               </div>
+                </div>
               </div>
       </section>
 
@@ -147,38 +126,36 @@
       <div class="services-container">
         <!-- Section Header -->
         <div class="services-header">
-          <span class="services-badge">Our Portfolio</span>
-          <h2 class="services-title">
-            Our Holding
-            <br />
-            Companies
-          </h2>
-          <p class="services-description">
-            Discover the diverse portfolio of companies under Alzeer Group Holding,
-            each leading innovation and excellence in their respective industries.
-          </p>
-                </div>
+          <span class="services-badge">{{ labels.companiesBadge }}</span>
+          <h2 class="services-title" v-html="labels.companiesTitle"></h2>
+          <p class="services-description" v-html="labels.companiesDescription"></p>
+              </div>
 
         <!-- Services Grid (Companies from DB) -->
         <div class="services-grid">
-          <div v-for="company in companies" :key="company.id" class="service-card">
+          <div
+            v-for="company in companies"
+            :key="company.id"
+            class="service-card"
+            @click="openCompanyWebsite(company.website)"
+          >
             <div class="service-content">
               <div class="service-icon-wrapper">
                 <img v-if="company.logo_path" :src="`/storage/${company.logo_path}`" :alt="company.name" class="company-logo" />
                 <div v-else class="company-logo-fallback">{{ (company.name || '?').charAt(0) }}</div>
-              </div>
+                </div>
 
               <h3 class="service-title">{{ company.name }}</h3>
-              <p class="service-text">{{ company.description || '—' }}</p>
+              <p class="service-text">{{ currentLanguage === 'AR' ? (company.description_ar || company.description || '—') : (company.description || '—') }}</p>
 
               <div class="service-footer">
-                <a :href="company.website || '#'" class="service-link" target="_blank" rel="noopener">
+                <a :href="company.website || '#'" class="service-link" target="_blank" rel="noopener" @click.stop>
                   Learn More
                   <svg class="service-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
                   </svg>
                 </a>
-              </div>
+                </div>
               </div>
               </div>
             </div>
@@ -186,15 +163,10 @@
         <!-- Call to Action -->
         <div class="services-cta">
           <div class="cta-box">
-            <h3 class="cta-title">
-              Join Our Growing Portfolio of Companies
-            </h3>
-            <p class="cta-description">
-              Become part of the Alzeer Group Holding family and benefit from our extensive
-              network, resources, and expertise across multiple industries.
-            </p>
+            <h3 class="cta-title" v-html="labels.companiesCtaTitle"></h3>
+            <p class="cta-description" v-html="labels.companiesCtaDescription"></p>
             <button class="cta-button">
-              Explore Partnership
+              {{ labels.companiesCtaButton }}
                 </button>
               </div>
               </div>
@@ -210,10 +182,7 @@
             <div class="footer-logo-section">
               <img src="/asset/logos/44.png" alt="Alzeer Group Holding" class="footer-logo-image" />
               </div>
-            <p class="footer-company-description">
-              Leading the future of strategic investment with innovative solutions
-              and sustainable growth across global markets.
-            </p>
+            <p class="footer-company-description">{{ labels.footerCompanyDescription || ' ' }}</p>
             <div class="footer-social-links">
               <a href="#" class="social-icon-link">
                 <svg class="social-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -239,19 +208,19 @@
 
             <!-- Quick Links -->
           <div class="footer-links-section">
-            <h4 class="footer-section-title">Quick Links</h4>
+            <h4 class="footer-section-title">{{ labels.footerQuickLinks }}</h4>
             <ul class="footer-links-list">
-              <li><a href="#about" class="footer-link">About Us</a></li>
-              <li><a href="#companies" class="footer-link">Companies</a></li>
-              <li><a href="#portfolio" class="footer-link">Portfolio</a></li>
-              <li><a href="#" class="footer-link">Careers</a></li>
-              <li><a href="#" class="footer-link">News</a></li>
+              <li><a href="#about" class="footer-link">{{ labels.about }}</a></li>
+              <li><a href="#companies" class="footer-link">{{ labels.companies }}</a></li>
+              <li><a href="#portfolio" class="footer-link">{{ labels.footerQuickLinks === 'روابط سريعة' ? 'المحفظة' : 'Portfolio' }}</a></li>
+              <li><a href="#" class="footer-link">{{ labels.footerQuickLinks === 'روابط سريعة' ? 'الوظائف' : 'Careers' }}</a></li>
+              <li><a href="#" class="footer-link">{{ labels.footerQuickLinks === 'روابط سريعة' ? 'الأخبار' : 'News' }}</a></li>
               </ul>
             </div>
 
           <!-- Contact Info -->
           <div class="footer-contact-section">
-            <h4 class="footer-section-title">Contact</h4>
+            <h4 class="footer-section-title">{{ labels.footerContact }}</h4>
             <div class="footer-contact-list">
               <div class="footer-contact-item">
                 <svg class="contact-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -280,13 +249,11 @@
         <!-- Bottom Bar -->
           <div class="footer-bottom">
           <div class="footer-bottom-content">
-            <p class="footer-copyright">
-              © 2024 Alzeer Group Holding. All rights reserved.
-            </p>
+            <p class="footer-copyright">{{ labels.footerCopyright }}</p>
               <div class="footer-bottom-links">
-              <a href="#" class="footer-bottom-link">Privacy Policy</a>
-              <a href="#" class="footer-bottom-link">Terms of Service</a>
-              <a href="#" class="footer-bottom-link">Legal</a>
+              <a href="#" class="footer-bottom-link">{{ labels.footerPrivacy }}</a>
+              <a href="#" class="footer-bottom-link">{{ labels.footerTerms }}</a>
+              <a href="#" class="footer-bottom-link">{{ labels.footerLegal }}</a>
               </div>
             </div>
           </div>
@@ -298,6 +265,7 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue'
 import { usePage } from '@inertiajs/vue3'
+import { t, setLanguage as i18nSetLanguage, currentLanguage as i18nLang } from '../lib/i18n'
 
 const mobileMenuOpen = ref(false)
 const toggleMobileMenu = () => { mobileMenuOpen.value = !mobileMenuOpen.value }
@@ -305,13 +273,54 @@ const toggleMobileMenu = () => { mobileMenuOpen.value = !mobileMenuOpen.value }
 // Companies from server (Inertia props)
 const page = usePage()
 const companies = computed(() => (page.props.companies as any[]) || [])
+
+function openCompanyWebsite(url?: string) {
+  if (!url) return
+  try {
+    const normalized = url.startsWith('http') ? url : `https://${url}`
+    window.open(normalized, '_blank', 'noopener,noreferrer')
+  } catch (e) {
+    console.error('Invalid website url:', url)
+  }
+}
+
+// Language management via i18n helper
+const currentLanguage = i18nLang
+function setLanguage(code: 'EN' | 'AR') { i18nSetLanguage(code) }
+
+// Labels computed to ensure reactivity is tracked explicitly
+const labels = computed(() => ({
+  home: t('header.home'),
+  about: t('header.about'),
+  companies: t('header.companies'),
+  portfolio: t('header.portfolio'),
+  contact: t('header.contact'),
+  heroBadge: t('hero.badge'),
+  heroTitle: t('hero.title'),
+  heroDescription: t('hero.description'),
+  heroCtaPrimary: t('hero.ctaPrimary'),
+  heroCtaSecondary: t('hero.ctaSecondary'),
+  companiesBadge: t('companies.badge'),
+  companiesTitle: t('companies.title'),
+  companiesDescription: t('companies.description'),
+  companiesCtaTitle: t('companies.ctaTitle'),
+  companiesCtaDescription: t('companies.ctaDescription'),
+  companiesCtaButton: t('companies.ctaButton'),
+  footerQuickLinks: t('footer.quickLinks'),
+  footerPrivacy: t('footer.privacy'),
+  footerTerms: t('footer.terms'),
+  footerLegal: t('footer.legal'),
+  footerContact: t('header.contact'),
+  footerCompanyDescription: t('footer.companyDescription'),
+  footerCopyright: t('footer.copyright'),
+}))
 </script>
 
 <style scoped>
 .page-wrapper {
   width: 100%;
   min-height: 100vh;
-  background: #ffffff;
+  background: #ffffff; /* site background white */
 }
 
 /* Header Styles */
@@ -384,22 +393,30 @@ const companies = computed(() => (page.props.companies as any[]) || [])
   gap: 1rem;
 }
 
-.btn-get-started {
-  display: none;
-  padding: 0.5rem 1.5rem;
-  background: transparent;
-  border: 1px solid #d9bb59;
-  color: #d9bb59;
-  border-radius: 0.375rem;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.3s ease;
+.language-switch {
+  display: inline-flex;
+  background: rgba(255, 255, 255, 0.6);
+  border: 1px solid rgba(0,0,0,0.1);
+  border-radius: 9999px;
+  overflow: hidden;
 }
 
-.btn-get-started:hover {
-  background: #d9bb59;
-  color: #000000;
+.lang-btn {
+  padding: 0.35rem 0.75rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #111827;
+  background: transparent;
+  border: none;
+  cursor: pointer;
 }
+
+.lang-btn.active {
+  background: #111827;
+  color: #ffffff;
+}
+
+/* Removed Get Started button */
 
 .btn-menu-mobile {
   display: flex;
@@ -734,7 +751,7 @@ const companies = computed(() => (page.props.companies as any[]) || [])
 /* Services Section */
 .services-section {
   padding: 6rem 0;
-  background: #000000;
+  background: #ffffff;
 }
 
 .services-container {
@@ -789,18 +806,22 @@ const companies = computed(() => (page.props.companies as any[]) || [])
 
 /* Service Card */
 .service-card {
-  background: linear-gradient(135deg, #1a1a1a 0%, #000000 100%);
-  border: 1px solid rgba(217, 187, 89, 0.2);
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.08);
   border-radius: 1rem;
   transition: all 0.5s ease;
   cursor: pointer;
   height: 100%;
 }
 
+.service-card:active {
+  transform: scale(0.995);
+}
+
 .service-card:hover {
-  border-color: rgba(217, 187, 89, 0.4);
-  transform: scale(1.05);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+  border-color: rgba(0, 0, 0, 0.15);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
 }
 
 .service-content {
@@ -846,8 +867,8 @@ const companies = computed(() => (page.props.companies as any[]) || [])
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(217, 187, 89, 0.15);
-  color: #d9bb59;
+  background: #f3f4f6;
+  color: #111827;
   font-weight: 700;
   border-radius: 0.75rem;
 }
@@ -880,7 +901,7 @@ const companies = computed(() => (page.props.companies as any[]) || [])
 .service-title {
   font-size: 1.25rem;
   font-weight: 700;
-  color: #ffffff;
+  color: #000000;
   margin-bottom: 1rem;
   transition: color 0.3s ease;
 }
@@ -908,7 +929,7 @@ const companies = computed(() => (page.props.companies as any[]) || [])
 .service-footer {
   margin-top: auto; /* push footer to bottom for equal heights */
   padding-top: 1rem;
-  border-top: 1px solid #1f2937;
+  border-top: 1px solid #e5e7eb;
 }
 
 .service-link {
@@ -948,7 +969,7 @@ const companies = computed(() => (page.props.companies as any[]) || [])
 .cta-title {
   font-size: 1.875rem;
   font-weight: 700;
-  color: #ffffff;
+  color: #000000;
   margin-bottom: 1rem;
 }
 
