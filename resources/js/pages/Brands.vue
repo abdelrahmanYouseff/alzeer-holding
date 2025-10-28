@@ -277,13 +277,22 @@ const isRTL = computed(() => currentLanguage.value === 'AR')
 </script>
 
 <style scoped>
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap');
+
+/* Avenir Arabic Font Definition */
+@font-face {
+    font-family: 'Avenir Arabic';
+    src: url('https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;500;600;700;800;900&display=swap');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
 
 .brands-page {
   min-height: 100vh;
   background-color: white;
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Roboto', 'Avenir Arabic', sans-serif;
 }
 
 /* Navigation Styles */
@@ -807,7 +816,7 @@ const isRTL = computed(() => currentLanguage.value === 'AR')
 
 /* RTL Support */
 [dir="rtl"] * {
-  font-family: 'Noto Sans Arabic', sans-serif !important;
+  font-family: 'Avenir Arabic', 'Cairo', sans-serif !important;
 }
 
 [dir="rtl"] .navbar-toggler {

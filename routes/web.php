@@ -16,6 +16,14 @@ Route::get('/', function () {
     ]);
 })->name('home');
 
+Route::get('/about', function () {
+    return Inertia::render('About');
+})->name('about');
+
+Route::get('/contact', function () {
+    return Inertia::render('Contact');
+})->name('contact');
+
 
 Route::get('dashboard', function () {
     return Inertia::render('Dashboard');

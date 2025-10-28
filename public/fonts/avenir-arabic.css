@@ -1,0 +1,90 @@
+/* Avenir Arabic Font Definition - Using Cairo as base font */
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;500;600;700;800;900&display=swap');
+
+/* Define Avenir Arabic as an alias for Cairo font */
+@font-face {
+    font-family: 'Avenir Arabic';
+    src: local('Cairo');
+    font-weight: 200;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Avenir Arabic';
+    src: local('Cairo');
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Avenir Arabic';
+    src: local('Cairo');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Avenir Arabic';
+    src: local('Cairo');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Avenir Arabic';
+    src: local('Cairo');
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Avenir Arabic';
+    src: local('Cairo');
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Avenir Arabic';
+    src: local('Cairo');
+    font-weight: 800;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Avenir Arabic';
+    src: local('Cairo');
+    font-weight: 900;
+    font-style: normal;
+    font-display: swap;
+}
+
+/* Force Avenir Arabic font on all elements */
+* {
+    font-family: 'Avenir Arabic', 'Cairo', sans-serif !important;
+}
+
+body {
+    font-family: 'Avenir Arabic', 'Cairo', sans-serif !important;
+}
+
+html {
+    font-family: 'Avenir Arabic', 'Cairo', sans-serif !important;
+}
+
+/* Arabic text specific */
+[dir="rtl"] * {
+    font-family: 'Avenir Arabic', 'Cairo', sans-serif !important;
+}
+
+/* Ensure all text elements use Avenir Arabic */
+h1, h2, h3, h4, h5, h6, p, span, div, a, button, input, textarea, select {
+    font-family: 'Avenir Arabic', 'Cairo', sans-serif !important;
+}

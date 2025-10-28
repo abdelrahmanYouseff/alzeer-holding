@@ -12,10 +12,10 @@
           <!-- Navigation - Desktop -->
           <nav class="nav-desktop">
             <a href="#home" class="nav-link">{{ labels.home }}</a>
-            <a href="#about" class="nav-link">{{ labels.about }}</a>
+            <a href="/about" class="nav-link">{{ labels.about }}</a>
             <a href="#companies" class="nav-link">{{ labels.companies }}</a>
             <a href="#portfolio" class="nav-link">{{ labels.portfolio }}</a>
-            <a href="#contact" class="nav-link">{{ labels.contact }}</a>
+            <a href="/contact" class="nav-link">{{ labels.contact }}</a>
           </nav>
 
           <!-- Actions -->
@@ -50,10 +50,10 @@
         <div v-if="mobileMenuOpen" class="mobile-menu">
           <nav class="mobile-nav">
             <a href="#home" class="mobile-nav-link" @click="toggleMobileMenu">{{ labels.home }}</a>
-            <a href="#about" class="mobile-nav-link" @click="toggleMobileMenu">{{ labels.about }}</a>
+            <a href="/about" class="mobile-nav-link" @click="toggleMobileMenu">{{ labels.about }}</a>
             <a href="#companies" class="mobile-nav-link" @click="toggleMobileMenu">{{ labels.companies }}</a>
             <a href="#portfolio" class="mobile-nav-link" @click="toggleMobileMenu">{{ labels.portfolio }}</a>
-            <a href="#contact" class="mobile-nav-link" @click="toggleMobileMenu">{{ labels.contact }}</a>
+            <a href="/contact" class="mobile-nav-link" @click="toggleMobileMenu">{{ labels.contact }}</a>
     </nav>
                 </div>
       </transition>
@@ -112,12 +112,6 @@
           </button>
                 </div>
 
-        <!-- Scroll Indicator -->
-        <div class="scroll-indicator">
-          <div class="scroll-border">
-            <div class="scroll-dot"></div>
-              </div>
-                </div>
               </div>
       </section>
 
@@ -131,34 +125,19 @@
           <p class="services-description" v-html="labels.companiesDescription"></p>
               </div>
 
-        <!-- Services Grid (Companies from DB) -->
-        <div class="services-grid">
+        <!-- Companies Grid (Circular Icons) -->
+        <div class="companies-grid">
           <div
             v-for="company in companies"
             :key="company.id"
-            class="service-card"
+            class="company-circle"
             @click="openCompanyWebsite(company.website)"
+            :title="company.name"
           >
-            <div class="service-content">
-              <div class="service-icon-wrapper">
-                <img v-if="company.logo_path" :src="`/storage/${company.logo_path}`" :alt="company.name" class="company-logo" />
-                <div v-else class="company-logo-fallback">{{ (company.name || '?').charAt(0) }}</div>
-                </div>
-
-              <h3 class="service-title">{{ company.name }}</h3>
-              <p class="service-text">{{ currentLanguage === 'AR' ? (company.description_ar || company.description || '—') : (company.description || '—') }}</p>
-
-              <div class="service-footer">
-                <a :href="company.website || '#'" class="service-link" target="_blank" rel="noopener" @click.stop>
-                  Learn More
-                  <svg class="service-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-                  </svg>
-                </a>
-                </div>
-              </div>
-              </div>
-            </div>
+            <img v-if="company.logo_path" :src="`/storage/${company.logo_path}`" :alt="company.name" class="company-circle-logo" />
+            <div v-else class="company-circle-fallback">{{ (company.name || '?').charAt(0) }}</div>
+          </div>
+        </div>
 
         <!-- Call to Action -->
         <div class="services-cta">
@@ -212,7 +191,7 @@
             <ul class="footer-links-list">
               <li><a href="#about" class="footer-link">{{ labels.about }}</a></li>
               <li><a href="#companies" class="footer-link">{{ labels.companies }}</a></li>
-              <li><a href="#portfolio" class="footer-link">{{ labels.footerQuickLinks === 'روابط سريعة' ? 'المحفظة' : 'Portfolio' }}</a></li>
+              <li><a href="#portfolio" class="footer-link">{{ labels.footerQuickLinks === 'روابط سريعة' ? 'هويتنا' : 'Portfolio' }}</a></li>
               <li><a href="#" class="footer-link">{{ labels.footerQuickLinks === 'روابط سريعة' ? 'الوظائف' : 'Careers' }}</a></li>
               <li><a href="#" class="footer-link">{{ labels.footerQuickLinks === 'روابط سريعة' ? 'الأخبار' : 'News' }}</a></li>
               </ul>
@@ -509,11 +488,22 @@ const labels = computed(() => ({
   position: relative;
   min-height: 100vh;
   display: flex;
-  align-items: center;
-    justify-content: center;
+  align-items: flex-start;
+  justify-content: center;
   overflow: hidden;
   margin-top: 0;
-  padding-top: 0;
+  padding-top: 0 !important;
+}
+
+/* Language-specific positioning for hero section */
+[dir="rtl"] .hero-section {
+  justify-content: flex-end;
+  padding-right: 2rem;
+}
+
+[dir="ltr"] .hero-section {
+  justify-content: flex-start;
+  padding-left: 2rem;
 }
 
 /* Video Background */
@@ -580,12 +570,31 @@ const labels = computed(() => ({
 
 /* Hero Content */
 .hero-content {
-    position: relative;
+  position: absolute;
   z-index: 20;
   text-align: center;
   max-width: 56rem;
-  margin: 0 auto;
   padding: 0 1.5rem;
+  top: 20%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+/* Language-specific positioning for hero content */
+[dir="rtl"] .hero-content {
+  text-align: right;
+  left: auto;
+  right: 5%;
+  transform: none;
+  max-width: 50rem;
+}
+
+[dir="ltr"] .hero-content {
+  text-align: left;
+  left: 5%;
+  right: auto;
+  transform: none;
+  max-width: 50rem;
 }
 
 .hero-badge {
@@ -632,7 +641,43 @@ const labels = computed(() => ({
   align-items: center;
   justify-content: center;
   gap: 1rem;
-  margin-bottom: 3rem;
+  margin-bottom: 1rem;
+  margin-top: 1rem;
+}
+
+/* Language-specific positioning for hero actions */
+[dir="rtl"] .hero-actions {
+  align-items: flex-end;
+  text-align: right;
+}
+
+[dir="ltr"] .hero-actions {
+  align-items: flex-start;
+  text-align: left;
+}
+
+/* More specific targeting for the button */
+[dir="rtl"] .hero-actions .btn-primary {
+  margin-left: auto;
+  margin-right: 0;
+  align-self: flex-end;
+  transform: translateX(0);
+}
+
+[dir="ltr"] .hero-actions .btn-primary {
+  margin-left: 0;
+  margin-right: auto;
+  align-self: flex-start;
+  transform: translateX(0);
+}
+
+/* Force the positioning to be more visible */
+[dir="rtl"] .hero-actions {
+  justify-content: flex-end;
+}
+
+[dir="ltr"] .hero-actions {
+  justify-content: flex-start;
 }
 
 .btn-primary,
@@ -690,40 +735,6 @@ const labels = computed(() => ({
   transform: scale(1.1);
 }
 
-/* Scroll Indicator */
-.scroll-indicator {
-    position: absolute;
-  bottom: 2rem;
-  left: 50%;
-  transform: translateX(-50%);
-}
-
-.scroll-border {
-  width: 1.5rem;
-  height: 2.5rem;
-  border: 2px solid rgba(217, 187, 89, 0.5);
-  border-radius: 9999px;
-  display: flex;
-  justify-content: center;
-  padding-top: 0.5rem;
-}
-
-.scroll-dot {
-  width: 0.25rem;
-  height: 0.75rem;
-  background: #d9bb59;
-  border-radius: 9999px;
-  animation: bounce 2s infinite;
-}
-
-@keyframes bounce {
-  0%, 100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(8px);
-  }
-}
 
 /* Hero Responsive */
 @media (min-width: 640px) {
@@ -794,6 +805,60 @@ const labels = computed(() => ({
   max-width: 48rem;
   margin: 0 auto;
   line-height: 1.75;
+}
+
+/* Companies Grid - Circular Icons */
+.companies-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  margin-bottom: 4rem;
+  justify-content: center;
+  align-items: center;
+  max-width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Company Circle */
+.company-circle {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: #ffffff;
+  border: 3px solid rgba(217, 187, 89, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.company-circle:hover {
+  border-color: #d9bb59;
+  transform: scale(1.1);
+  box-shadow: 0 8px 25px rgba(217, 187, 89, 0.3);
+}
+
+.company-circle-logo {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  padding: 15px;
+}
+
+.company-circle-fallback {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #d9bb59, #f59e0b);
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 2rem;
 }
 
 /* Services Grid */
@@ -999,10 +1064,16 @@ const labels = computed(() => ({
   box-shadow: 0 10px 30px rgba(217, 187, 89, 0.3);
 }
 
-/* Services Responsive */
+/* Companies Responsive */
+@media (min-width: 640px) {
+  .companies-grid {
+    gap: 2.5rem;
+  }
+}
+
 @media (min-width: 768px) {
-  .services-grid {
-    grid-template-columns: repeat(2, 1fr);
+  .companies-grid {
+    gap: 3rem;
   }
 
   .services-title {
@@ -1011,6 +1082,19 @@ const labels = computed(() => ({
 
   .cta-box {
     padding: 3rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .companies-grid {
+    gap: 3rem;
+  }
+}
+
+/* Services Responsive */
+@media (min-width: 768px) {
+  .services-grid {
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 
@@ -1211,5 +1295,30 @@ const labels = computed(() => ({
   .footer-bottom-content {
     flex-direction: row;
   }
+}
+
+/* Force hero content positioning for both languages */
+.hero-content {
+  position: absolute !important;
+  top: 20% !important;
+  z-index: 20 !important;
+}
+
+[dir="rtl"] .hero-content {
+  position: absolute !important;
+  top: 20% !important;
+  right: 5% !important;
+  left: auto !important;
+  transform: none !important;
+  z-index: 20 !important;
+}
+
+[dir="ltr"] .hero-content {
+  position: absolute !important;
+  top: 20% !important;
+  left: 5% !important;
+  right: auto !important;
+  transform: none !important;
+  z-index: 20 !important;
 }
 </style>
