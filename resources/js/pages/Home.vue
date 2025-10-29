@@ -805,10 +805,7 @@ const labels = computed(() => ({
   font-size: 2.5rem;
   font-weight: 700;
   margin-bottom: 1.5rem;
-  background: linear-gradient(to right, #ffffff, #d9bb59);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: #a97b2c;
   line-height: 1.2;
 }
 
