@@ -728,6 +728,14 @@ const labels = computed(() => ({
   .hero-title-description {
     text-align: center;
   }
+
+  .hero-title {
+    font-size: 2.5rem;
+  }
+
+  .hero-description {
+    font-size: 1.125rem;
+  }
 }
 
 @media (min-width: 640px) {
