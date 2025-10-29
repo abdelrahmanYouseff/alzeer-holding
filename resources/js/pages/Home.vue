@@ -592,10 +592,10 @@ const labels = computed(() => ({
   border: 1px solid rgba(217, 187, 89, 0.3);
   border-radius: 9999px;
   color: #d9bb59;
-  font-size: 1.125rem;
+  font-size: 0.95rem;
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
-  }
+}
 
   .hero-title {
     font-size: 4rem;
@@ -734,7 +734,7 @@ const labels = computed(() => ({
   }
 
   .badge-text {
-    font-size: 1.25rem;
+    font-size: 1rem;
   }
 
   .btn-primary,
@@ -754,7 +754,7 @@ const labels = computed(() => ({
   }
 
   .badge-text {
-    font-size: 1.375rem;
+    font-size: 1.125rem;
   }
 
   .btn-primary,
