@@ -135,7 +135,9 @@
             :title="company.name"
           >
             <img v-if="company.logo_path" :src="`/storage/${company.logo_path}`" :alt="company.name" class="company-circle-logo" />
-            <div v-else class="company-circle-fallback">{{ (company.name || '?').charAt(0) }}</div>
+            <div v-else class="company-circle-fallback">
+              <span class="fallback-text">{{ (company.name || '?').charAt(0) }}</span>
+            </div>
           </div>
         </div>
 
@@ -603,29 +605,26 @@ const labels = computed(() => ({
 
 .badge-text {
   display: inline-block;
-  padding: 0.5rem 1rem;
+  padding: 0.75rem 1.5rem;
   background: rgba(217, 187, 89, 0.2);
   border: 1px solid rgba(217, 187, 89, 0.3);
   border-radius: 9999px;
   color: #d9bb59;
-  font-size: 0.875rem;
+  font-size: 1.125rem;
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
   }
 
   .hero-title {
-    font-size: 3rem;
+    font-size: 4rem;
   font-weight: 700;
     margin-bottom: 1.5rem;
-  background: linear-gradient(to right, #ffffff, #d9bb59, #f59e0b);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: #ffffff;
   line-height: 1.1;
 }
 
 .hero-description {
-  font-size: 1.25rem;
+  font-size: 1.5rem;
   color: #d1d5db;
   margin-bottom: 2rem;
   max-width: 42rem;
@@ -685,8 +684,8 @@ const labels = computed(() => ({
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 1rem 2rem;
-    font-size: 1rem;
+  padding: 0.875rem 1.75rem;
+    font-size: 0.95rem;
   font-weight: 500;
   border-radius: 9999px;
   cursor: pointer;
@@ -745,17 +744,41 @@ const labels = computed(() => ({
 
 @media (min-width: 768px) {
   .hero-title {
-    font-size: 4rem;
+    font-size: 5rem;
   }
 
   .hero-description {
-    font-size: 1.5rem;
+    font-size: 1.75rem;
+  }
+
+  .badge-text {
+    font-size: 1.25rem;
+  }
+
+  .btn-primary,
+  .btn-secondary {
+    font-size: 1rem;
+    padding: 1rem 2rem;
   }
 }
 
 @media (min-width: 1024px) {
   .hero-title {
-    font-size: 5rem;
+    font-size: 6rem;
+  }
+
+  .hero-description {
+    font-size: 2rem;
+  }
+
+  .badge-text {
+    font-size: 1.375rem;
+  }
+
+  .btn-primary,
+  .btn-secondary {
+    font-size: 1.125rem;
+    padding: 1.125rem 2.25rem;
   }
 }
 
@@ -811,42 +834,43 @@ const labels = computed(() => ({
 .companies-grid {
   display: flex;
   flex-wrap: wrap;
-  gap: 2rem;
+  gap: 2.5rem;
   margin-bottom: 4rem;
   justify-content: center;
   align-items: center;
   max-width: 100%;
   margin-left: auto;
   margin-right: auto;
+  padding: 0 1rem;
 }
 
-/* Company Circle */
+/* Company Logo */
 .company-circle {
   width: 120px;
   height: 120px;
-  border-radius: 50%;
-  background: #ffffff;
-  border: 3px solid rgba(217, 187, 89, 0.2);
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   transition: all 0.3s ease;
-  overflow: hidden;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  padding: 10px;
 }
 
 .company-circle:hover {
-  border-color: #d9bb59;
-  transform: scale(1.1);
-  box-shadow: 0 8px 25px rgba(217, 187, 89, 0.3);
+  transform: translateY(-2px) scale(1.05);
 }
 
 .company-circle-logo {
   width: 100%;
   height: 100%;
   object-fit: contain;
-  padding: 15px;
+  transition: transform 0.3s ease;
+  filter: grayscale(0.2);
+}
+
+.company-circle:hover .company-circle-logo {
+  transform: scale(1.1);
+  filter: grayscale(0);
 }
 
 .company-circle-fallback {
@@ -858,7 +882,13 @@ const labels = computed(() => ({
   background: linear-gradient(135deg, #d9bb59, #f59e0b);
   color: #ffffff;
   font-weight: 700;
-  font-size: 2rem;
+  border-radius: 8px;
+}
+
+.fallback-text {
+  font-size: 1.5rem;
+  font-weight: 700;
+  text-transform: uppercase;
 }
 
 /* Services Grid */
@@ -1067,13 +1097,23 @@ const labels = computed(() => ({
 /* Companies Responsive */
 @media (min-width: 640px) {
   .companies-grid {
-    gap: 2.5rem;
+    gap: 3rem;
+  }
+
+  .company-circle {
+    width: 130px;
+    height: 130px;
   }
 }
 
 @media (min-width: 768px) {
   .companies-grid {
-    gap: 3rem;
+    gap: 3.5rem;
+  }
+
+  .company-circle {
+    width: 140px;
+    height: 140px;
   }
 
   .services-title {
@@ -1087,7 +1127,12 @@ const labels = computed(() => ({
 
 @media (min-width: 1024px) {
   .companies-grid {
-    gap: 3rem;
+    gap: 4rem;
+  }
+
+  .company-circle {
+    width: 150px;
+    height: 150px;
   }
 }
 
