@@ -177,8 +177,6 @@
               <li><a href="#about" class="footer-link">{{ labels.about }}</a></li>
               <li><a href="#companies" class="footer-link">{{ labels.companies }}</a></li>
               <li><a href="#portfolio" class="footer-link">{{ labels.footerQuickLinks === 'روابط سريعة' ? 'هويتنا' : 'Portfolio' }}</a></li>
-              <li><a href="#" class="footer-link">{{ labels.footerQuickLinks === 'روابط سريعة' ? 'الوظائف' : 'Careers' }}</a></li>
-              <li><a href="#" class="footer-link">{{ labels.footerQuickLinks === 'روابط سريعة' ? 'الأخبار' : 'News' }}</a></li>
               </ul>
             </div>
 
