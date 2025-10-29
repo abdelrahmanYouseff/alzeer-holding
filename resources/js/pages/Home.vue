@@ -87,9 +87,10 @@
           <span class="badge-text">{{ labels.heroBadge }}</span>
         </div>
 
-        <h1 class="hero-title" v-html="labels.heroTitle"></h1>
-
-        <p class="hero-description" v-html="labels.heroDescription"></p>
+        <div class="hero-title-description">
+          <h1 class="hero-title" v-html="labels.heroTitle"></h1>
+          <p class="hero-description" v-html="labels.heroDescription"></p>
+        </div>
 
         <div class="hero-actions">
         </div>
@@ -597,22 +598,31 @@ const labels = computed(() => ({
   -webkit-backdrop-filter: blur(8px);
 }
 
-  .hero-title {
-    font-size: 4rem;
+.hero-title-description {
+  display: flex;
+  align-items: flex-start;
+  gap: 2rem;
+  margin-bottom: 1.5rem;
+}
+
+.hero-title {
+  font-size: 4rem;
   font-weight: 700;
-    margin-bottom: 1.5rem;
+  margin-bottom: 0;
   color: #ffffff;
   line-height: 1.1;
+  flex: 1;
 }
 
 .hero-description {
   font-size: 1.5rem;
   color: #d1d5db;
-  margin-bottom: 2rem;
-  max-width: 42rem;
-  margin-left: auto;
-  margin-right: auto;
+  margin-bottom: 0;
+  max-width: none;
+  margin-left: 0;
+  margin-right: 0;
   line-height: 1.75;
+  flex: 1;
 }
 
 /* Hero Actions */
@@ -718,6 +728,13 @@ const labels = computed(() => ({
 
 
 /* Hero Responsive */
+@media (max-width: 767px) {
+  .hero-title-description {
+    flex-direction: column;
+    gap: 1rem;
+  }
+}
+
 @media (min-width: 640px) {
   .hero-actions {
     flex-direction: row;
