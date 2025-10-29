@@ -600,8 +600,8 @@ const labels = computed(() => ({
 
 .hero-title-description {
   display: flex;
-  align-items: flex-start;
-  gap: 2rem;
+  flex-direction: column;
+  gap: 1rem;
   margin-bottom: 1.5rem;
 }
 
@@ -611,7 +611,6 @@ const labels = computed(() => ({
   margin-bottom: 0;
   color: #ffffff;
   line-height: 1.1;
-  flex: 1;
 }
 
 .hero-description {
@@ -622,7 +621,6 @@ const labels = computed(() => ({
   margin-left: 0;
   margin-right: 0;
   line-height: 1.75;
-  flex: 1;
 }
 
 /* Hero Actions */
@@ -728,13 +726,6 @@ const labels = computed(() => ({
 
 
 /* Hero Responsive */
-@media (max-width: 767px) {
-  .hero-title-description {
-    flex-direction: column;
-    gap: 1rem;
-  }
-}
-
 @media (min-width: 640px) {
   .hero-actions {
     flex-direction: row;
