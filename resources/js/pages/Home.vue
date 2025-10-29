@@ -724,6 +724,12 @@ const labels = computed(() => ({
 
 
 /* Hero Responsive */
+@media (max-width: 767px) {
+  .hero-title-description {
+    text-align: center;
+  }
+}
+
 @media (min-width: 640px) {
   .hero-actions {
     flex-direction: row;
