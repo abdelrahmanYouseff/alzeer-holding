@@ -14,7 +14,7 @@
             <a href="#home" class="nav-link">{{ labels.home }}</a>
             <a href="/about" class="nav-link">{{ labels.about }}</a>
             <a href="#companies" class="nav-link">{{ labels.companies }}</a>
-            <a href="/Company%20Profile%20FAHAD%20(1).pdf" class="nav-link" target="_blank" rel="noopener">{{ labels.portfolio }}</a>
+            <a href="/company-profile-fahad.pdf" class="nav-link" target="_blank" rel="noopener">{{ labels.portfolio }}</a>
             <a href="/contact" class="nav-link">{{ labels.contact }}</a>
           </nav>
 
@@ -52,7 +52,7 @@
             <a href="#home" class="mobile-nav-link" @click="toggleMobileMenu">{{ labels.home }}</a>
             <a href="/about" class="mobile-nav-link" @click="toggleMobileMenu">{{ labels.about }}</a>
             <a href="#companies" class="mobile-nav-link" @click="toggleMobileMenu">{{ labels.companies }}</a>
-            <a href="/Company%20Profile%20FAHAD%20(1).pdf" class="mobile-nav-link" target="_blank" rel="noopener" @click="toggleMobileMenu">{{ labels.portfolio }}</a>
+            <a href="/company-profile-fahad.pdf" class="mobile-nav-link" target="_blank" rel="noopener" @click="toggleMobileMenu">{{ labels.portfolio }}</a>
             <a href="/contact" class="mobile-nav-link" @click="toggleMobileMenu">{{ labels.contact }}</a>
     </nav>
                 </div>
