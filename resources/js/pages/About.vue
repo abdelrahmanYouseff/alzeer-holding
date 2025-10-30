@@ -231,7 +231,7 @@
               <li><a href="/about" class="footer-link">{{ labels.about }}</a></li>
               <li><a href="/#companies" class="footer-link">{{ labels.companies }}</a></li>
               <li>
-                <a href="/company-profile-fahad.pdf" class="footer-link" target="_blank" rel="noopener">
+                <a href="/portfolio.pdf" class="footer-link" target="_blank" rel="noopener">
                   {{ labels.footerQuickLinks === 'روابط سريعة' ? 'هويتنا' : 'Portfolio' }}
                 </a>
               </li>
