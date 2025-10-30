@@ -14,7 +14,7 @@
             <a href="/" class="nav-link">{{ labels.home }}</a>
             <a href="/about" class="nav-link">{{ labels.about }}</a>
             <a href="/#companies" class="nav-link">{{ labels.companies }}</a>
-            <a href="/#portfolio" class="nav-link">{{ labels.portfolio }}</a>
+            <a href="/Company%20Profile%20FAHAD%20(1).pdf" class="nav-link" target="_blank" rel="noopener">{{ labels.portfolio }}</a>
             <a href="/contact" class="nav-link active">{{ labels.contact }}</a>
           </nav>
 
@@ -52,7 +52,7 @@
             <a href="/" class="mobile-nav-link" @click="toggleMobileMenu">{{ labels.home }}</a>
             <a href="/about" class="mobile-nav-link" @click="toggleMobileMenu">{{ labels.about }}</a>
             <a href="/#companies" class="mobile-nav-link" @click="toggleMobileMenu">{{ labels.companies }}</a>
-            <a href="/#portfolio" class="mobile-nav-link" @click="toggleMobileMenu">{{ labels.portfolio }}</a>
+            <a href="/Company%20Profile%20FAHAD%20(1).pdf" class="mobile-nav-link" target="_blank" rel="noopener" @click="toggleMobileMenu">{{ labels.portfolio }}</a>
             <a href="/contact" class="mobile-nav-link" @click="toggleMobileMenu">{{ labels.contact }}</a>
           </nav>
         </div>
@@ -302,7 +302,11 @@
             <ul class="footer-links-list">
               <li><a href="/about" class="footer-link">{{ labels.about }}</a></li>
               <li><a href="/#companies" class="footer-link">{{ labels.companies }}</a></li>
-              <li><a href="/#portfolio" class="footer-link">{{ labels.footerQuickLinks === 'روابط سريعة' ? 'هويتنا' : 'Portfolio' }}</a></li>
+              <li>
+                <a href="/Company%20Profile%20FAHAD%20(1).pdf" class="footer-link" target="_blank" rel="noopener">
+                  {{ labels.footerQuickLinks === 'روابط سريعة' ? 'هويتنا' : 'Portfolio' }}
+                </a>
+              </li>
               <li><a href="#" class="footer-link">{{ labels.footerQuickLinks === 'روابط سريعة' ? 'الوظائف' : 'Careers' }}</a></li>
               <li><a href="#" class="footer-link">{{ labels.footerQuickLinks === 'روابط سريعة' ? 'الأخبار' : 'News' }}</a></li>
             </ul>
